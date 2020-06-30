@@ -200,12 +200,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return isItem;
     }
 
-    / **
+    /*
      * Déterminez l'environnement PureCloud d'incorporation basé sur la chaîne de requête ou
      * renvoyé via le paramètre de hachage d'état d'octroi implicite OAuth2.
      *
      * @returns Une chaîne indiquant l'env PC d'intégration (par exemple mypurecloud.com, mypurecloud.jp); sinon, null.
-     * /
+     */
     function getEmbeddingPCEnv() {
         let result = null;
 
