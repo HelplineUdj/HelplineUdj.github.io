@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     * dans votre organisation PureCloud. Après avoir créé le client d'octroi implicite, mappez les identifiants client sur
     * la ou les clés de région spécifiées dans l'objet ci-dessous, déployez la page et configurez une application pour pointer vers cette URL.
     */
-    let pcOAuthClientIds = { 'mypurecloud.de': 'b3c0b52b-693e-47f2-9edf-d70979ba6788:9dbOZSsLCYqVDg7BUsIxnL1YmDLGzUKnzJgA7kVLIlo' };
+    let pcOAuthClientIds = { 'apps.mypurecloud.de': 'b3c0b52b-693e-47f2-9edf-d70979ba6788:9dbOZSsLCYqVDg7BUsIxnL1YmDLGzUKnzJgA7kVLIlo' };
     let clientId = pcOAuthClientIds[pcEnvironment];
     if (!clientId) {
         setErrorState(
