@@ -1,35 +1,103 @@
-<!DOCTYPE html>
+<script>'use strict'</script>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Incoming Conversation</title>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' async type='text/css'>
-    <link rel="stylesheet" href="style.css">
-
+    <!-- Style CSS -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>    
     <script src="https://cdn.jsdelivr.net/npm/chronomouse@2.4.0/chronomouse.2.4.0.min.js"></script>
     <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.0.0/purecloud-client-app-sdk.js"></script>
     <script src="https://sdk-cdn.mypurecloud.com/javascript/29.1.0/purecloud-platform-client-v2.min.js"></script>
-</head>
-<body>
-    <h1 id="txtIncomingCall"></h1>
-    <div>
-        <div id="txtName" class="floating field-title"></div>
-        <div id="callerName" class="floating field-value"></div>   
-    </div>
-    <div>
-        <div id="txtNumber" class="floating field-title"></div>
-        <div id="callerNumber" class="floating field-value"></div>   
-    </div>
-    <div>
-        <div id="txtStateInfo" class="floating field-title"></div>
-        <div id="callerArea" class="floating field-value"></div>   
-    </div>
+    <!-- <title>Hello, world!</title> -->
+  </head>
+  <body>
+   
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img id="CA" src="Image7.png" class="img-responsive" style="width:80%;" alt="CA img">
+        </div>
+        <div class="col text-right">
+          <img id="helpline" src="helpline.png" class="img-responsive" style="width:60%;" alt="Helpline img">
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            <li class="list-group-item">Nom : </li>
+            <li class="list-group-item">Prenom : </li>
+            <li class="list-group-item">Departement : </li>
+            <li class="list-group-item">Qualification : </li>
+          </ul>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-sm-4 text-center">
+         <a href="https://dev69517.service-now.com/nav_to.do?uri=%2Fhome.do%3F"> <img id="snow" src="SNOW_Logo1.png" class="w-25 p-2" style="border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;" alt="Service Now img"></a>
+         <button type="button" style=" border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;margin-left:8%;background-color: white;color: black;" class="btn btn-lg btn-primary">PUC</button>
+        </div>
+        <!-- <div class="col">
+          <button type="button" style="width: 30%;height:95%;border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.5em;" class="btn btn-primary">PUC</button>
+        </div> -->
+      </div><br>
 
-    <script type="module">
+      <!-- <div class="row align-items-center">
+        <div class="col-sm">
+          <button type="button" class="btn btn-primary" style="background-color:#eceffd;border-color: #eceffd;"><img id="snow" src="SNOW_Logo1.png" class="img-responsive" alt="Service Now img"></button>
+          <button type="button" class="btn btn-primary"  style="background-color:#eceffd;border-color: #eceffd;color: black;font-size: 0.98rem;font-weight: 400;">PUC</button>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col">
+          <h1 id="hUDJ" class="h6">BY UDJ</h1><img id="udj" src="udj logo.jpg" class="img-responsive" style="width:5%;margin-left:2%;" alt="UDJ img">
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-sm-5 text-center">
+          <button onclick="myFunction()" type="button" style="width: 27%;height:95%;border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;margin-left:8%;background-color: white;color: black;" class="btn btn-primary">Test</button>
+        </div>
+      </div> -->
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Include requirejs -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+
+    <script type="text/javascript">
+      // Obtain a reference to the platformClient object
+      requirejs(['https://sdk-cdn.mypurecloud.com/javascript/amd/83.0.0/purecloud-platform-client-v2.min.js'], (platformClient) => {
+        console.log(platformClient);
+      });
+    </script> -->
+    <!-- Include requirejs -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+
+    <script type="text/javascript">
+      // Obtain a reference to the platformClient object
+      require(['https://sdk-cdn.mypurecloud.com/javascript/amd/83.0.0/purecloud-platform-client-v2.min.js'], (platformClient) => {
+        console.log(platformClient);
+      });
+    </script>
+    <script>
+
+      function myFunction() {
+        //use that session to interface with the API
+        var users = new platformClient.UsersApi();
+        console.log("getting ME");
+        users.getUsersMe().then(function(userObject){
+            console.log("got me");
+            console.log(userObject);
+            console.log("done");
+        });
+      }
+    </script> -->
+        <script type="module">
         import clientApp from './client_app.js';
 
         var queryString = window.location.search.substring(1);
@@ -39,7 +107,6 @@
         console.log(' cest moiiiiiiiiiiiiiiiiiiiiiiiii ' );
         console.log('queryString : '+ queryString);
         console.log('pairs : '+ pairs);
-        console.log('pcEnv : '+ pcEnv);
         for (var i = 0; i < pairs.length; i++)
         {
             var currParam = pairs[i].split('=');
@@ -73,5 +140,8 @@
         clientApp.setup(pcEnv, langTag, "index.html");
         clientApp.purecloudClientApi = new window.purecloud.apps.ClientApp();
     </script>
-</body> 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  </body>
 </html>
