@@ -1,155 +1,76 @@
-<script>'use strict'</script>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
+<!DOCTYPE html>
+<html>
+<!--
+        Démonstration pour illustrer myClientApp.externalContacts.showExternalContactProfile (...) et
+          myClientApp.externalContacts.showExternalOrganizationProfile (...) Méthodes SDK.
+
+        Remarque: Bien que cet exemple soit hébergé avec les autres ici sur github; ça ne marchera pas sans
+          configurer un client OAuth et l'héberger ailleurs. Voir le code js ci-dessous pour plus de détails.
+
+        Rappel: cet exemple utilise des CDN et du javascript simple pour illustrer le SDK. Les deux
+          SDK PureCloud et SDK Apps peuvent être obtenus via npm et prennent en charge de nombreux outils de construction
+          et des bibliothèques javascript pour s'adapter à votre environnement de développement.
+    -->
+
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PureCloud client-app-sdk External Contacts Demo</title>
 
-    <!-- Style CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>    
-    <script src="https://cdn.jsdelivr.net/npm/chronomouse@2.4.0/chronomouse.2.4.0.min.js"></script>
-    <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.0.0/purecloud-client-app-sdk.js"></script>
-    <script src="https://sdk-cdn.mypurecloud.com/javascript/29.1.0/purecloud-platform-client-v2.min.js"></script>
-    <script type="module">
-        import clientApp from './client_app.js';
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+        integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
+        integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 
-        function run(){
-          var queryString = window.location.search.substring(1);
-        var pairs = queryString.split('&');
-        var langTag = null;
-        var pcEnv = null;
-        console.log(' cest moiiiiiiiiiiiiiiiiiiiiiiiii ' );
-        console.log('queryString : '+ queryString);
-        console.log('pairs : '+ pairs);
-        for (var i = 0; i < pairs.length; i++)
-        {
-            var currParam = pairs[i].split('=');
-            if(currParam[0] === 'langTag') {
-                langTag = currParam[1];
-            } else if(currParam[0] === 'pcEnvironment') {
-                pcEnv = currParam[1];
-            } else if(currParam[0] === 'environment' && pcEnv === null) {
-                pcEnv = currParam[1];
-            }
+    <script src="https://sdk-cdn.mypurecloud.com/javascript/72.0.0/purecloud-platform-client-v2.min.js"></script>
+    <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.4.0/purecloud-client-app-sdk-49c1570bfd8967d8861435e0e7178035.min.js"></script>
+    <script src="script.js"></script>
+</head>
 
-            if (langTag !== null) {
-                $.getJSON('./language.json', function(data) {
-                    $("#txtIncomingCall").text("\u260E " + data[langTag].IncomingCall);
-                    $("#txtName").text(data[langTag].Name + ": ");
-                    $("#txtNumber").text(data[langTag].Number + ": ");
-                    $("#txtStateInfo").text(data[langTag].StateInfo + ": ");
-                });
-            }
-        }
+<body>
+    <noscript>
+        <a href="http://www.enable-javascript.com/" target="_blank"></a>.
+    </noscript>
 
-        if(langTag === null){
-            $.getJSON('./language.json', function(data) {
-                $("#txtIncomingCall").text("\u260E " + data["en-us"].IncomingCall);
-                $("#txtName").text(data["en-us"].Name + ": ");
-                $("#txtNumber").text(data["en-us"].Number + ": ");
-                $("#txtStateInfo").text(data["en-us"].StateInfo + ": ");
-            });
-        }
-        
-        clientApp.setup(pcEnv, langTag, "index.html");
-        clientApp.purecloudClientApi = new window.purecloud.apps.ClientApp();
-        }
-        run();
-    </script>
-    <!-- <title>Hello, world!</title> -->
-  </head>
-  <body>
-   
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <img id="CA" src="Image7.png" class="img-responsive" style="width:80%;" alt="CA img">
+    <section class="authenticating">
+        <div class="progress">
+            <div class="progress-bar"></div>
+            <span class="progress-label">Authenticating to PureCloud</span>
         </div>
-        <div class="col text-right">
-          <img id="helpline" src="helpline.png" class="img-responsive" style="width:60%;" alt="Helpline img">
-        </div>
-      </div><br>
-      <div class="row">
-        <div class="col">
-          <ul class="list-group">
-            <li class="list-group-item">Nom : </li>
-            <li class="list-group-item">Prenom : </li>
-            <li class="list-group-item">Departement : </li>
-            <li class="list-group-item">Qualification : </li>
-          </ul>
-        </div>
-         <div>
-          <div id="txtNumber" class="floating field-title"></div>
-          <div id="callerNumber" class="floating field-value"></div>   
-        </div>
-      </div><br>
-      <div class="row">
-        <div class="col-sm-4 text-center">
-         <a href="https://dev69517.service-now.com/nav_to.do?uri=%2Fhome.do%3F"> <img id="snow" src="SNOW_Logo1.png" class="w-25 p-2" style="border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;" alt="Service Now img"></a>
-         <button type="button" style=" border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;margin-left:8%;background-color: white;color: black;" class="btn btn-lg btn-primary">PUC</button>
-        </div>
-        <!-- <div class="col">
-          <button type="button" style="width: 30%;height:95%;border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.5em;" class="btn btn-primary">PUC</button>
-        </div> -->
-      </div><br>
+    </section>
 
-      <!-- <div class="row align-items-center">
-        <div class="col-sm">
-          <button type="button" class="btn btn-primary" style="background-color:#eceffd;border-color: #eceffd;"><img id="snow" src="SNOW_Logo1.png" class="img-responsive" alt="Service Now img"></button>
-          <button type="button" class="btn btn-primary"  style="background-color:#eceffd;border-color: #eceffd;color: black;font-size: 0.98rem;font-weight: 400;">PUC</button>
+    <table class="contacts table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name:</th>
+                <th scope="col">Organization:</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+
+    <section class="manual-example">
+        <h2>Manual Testers</h2>
+        <div class="form-group contact-id">
+            <label for="contact-id">Contact Id:</label>
+            <input type="text" class="form-control" id="contact-id">
         </div>
-      </div> -->
-      <div class="row">
-        <div class="col">
-          <h1 id="hUDJ" class="h6">BY UDJ</h1><img id="udj" src="udj logo.jpg" class="img-responsive" style="width:5%;margin-left:2%;" alt="UDJ img">
+        <div class="form-group">
+            <button type="button" id="contactButton" class="btn btn-primary">Submit</button>
         </div>
-      </div>
-      <!-- <div class="row">
-        <div class="col-sm-5 text-center">
-          <button onclick="myFunction()" type="button" style="width: 27%;height:95%;border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;margin-left:8%;background-color: white;color: black;" class="btn btn-primary">Test</button>
+        <div class="form-group org-id">
+            <label for="org-id">Organization Id:</label>
+            <input type="text" class="form-control" id="org-id">
         </div>
-      </div> -->
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- Include requirejs -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+        <div class="form-group">
+            <button type="button" id="orgButton" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="form-group">
+            <div class="tester-note">[Note:] These testers intentionally bypass client-side permission checks.</div>
+        </div>
+    </section>
+</body>
 
-    <script type="text/javascript">
-      // Obtain a reference to the platformClient object
-      requirejs(['https://sdk-cdn.mypurecloud.com/javascript/amd/83.0.0/purecloud-platform-client-v2.min.js'], (platformClient) => {
-        console.log(platformClient);
-      });
-    </script> -->
-    <!-- Include requirejs -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
-
-    <script type="text/javascript">
-      // Obtain a reference to the platformClient object
-      require(['https://sdk-cdn.mypurecloud.com/javascript/amd/83.0.0/purecloud-platform-client-v2.min.js'], (platformClient) => {
-        console.log(platformClient);
-      });
-    </script>
-    <script>
-
-      function myFunction() {
-        //use that session to interface with the API
-        var users = new platformClient.UsersApi();
-        console.log("getting ME");
-        users.getUsersMe().then(function(userObject){
-            console.log("got me");
-            console.log(userObject);
-            console.log("done");
-        });
-      }
-    </script> -->
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
-  </body>
 </html>
