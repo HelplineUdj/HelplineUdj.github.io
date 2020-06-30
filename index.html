@@ -17,7 +17,8 @@
     <script type="module">
         import clientApp from './client_app.js';
 
-        var queryString = window.location.search.substring(1);
+        function run(){
+          var queryString = window.location.search.substring(1);
         var pairs = queryString.split('&');
         var langTag = null;
         var pcEnv = null;
@@ -56,6 +57,8 @@
         
         clientApp.setup(pcEnv, langTag, "index.html");
         clientApp.purecloudClientApi = new window.purecloud.apps.ClientApp();
+        }
+        run();
     </script>
     <!-- <title>Hello, world!</title> -->
   </head>
@@ -78,6 +81,10 @@
             <li class="list-group-item">Departement : </li>
             <li class="list-group-item">Qualification : </li>
           </ul>
+        </div>
+         <div>
+          <div id="txtNumber" class="floating field-title"></div>
+          <div id="callerNumber" class="floating field-value"></div>   
         </div>
       </div><br>
       <div class="row">
