@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     * dans votre organisation PureCloud. Après avoir créé le client d'octroi implicite, mappez les identifiants client sur
     * la ou les clés de région spécifiées dans l'objet ci-dessous, déployez la page et configurez une application pour pointer vers cette URL.
     */
-    let pcOAuthClientIds = { 'apps.mypurecloud.de': 'b3c0b52b-693e-47f2-9edf-d70979ba6788:9dbOZSsLCYqVDg7BUsIxnL1YmDLGzUKnzJgA7kVLIlo' };
+    let pcOAuthClientIds = { 'apps.mypurecloud.de': 'd3d0641c-359c-4deb-8723-703f49075de9:7SHrwNN5WODK8GlQMAneX2_uULaYXjEDW6v6_rdrCfk' };
     let clientId = pcOAuthClientIds[pcEnvironment];
     if (!clientId) {
         setErrorState(
@@ -200,12 +200,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return isItem;
     }
 
-    /*
+    / **
      * Déterminez l'environnement PureCloud d'incorporation basé sur la chaîne de requête ou
      * renvoyé via le paramètre de hachage d'état d'octroi implicite OAuth2.
      *
      * @returns Une chaîne indiquant l'env PC d'intégration (par exemple mypurecloud.com, mypurecloud.jp); sinon, null.
-     */
+     * /
     function getEmbeddingPCEnv() {
         let result = null;
 
