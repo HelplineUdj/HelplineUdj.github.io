@@ -14,6 +14,49 @@
     <script src="https://cdn.jsdelivr.net/npm/chronomouse@2.4.0/chronomouse.2.4.0.min.js"></script>
     <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.0.0/purecloud-client-app-sdk.js"></script>
     <script src="https://sdk-cdn.mypurecloud.com/javascript/29.1.0/purecloud-platform-client-v2.min.js"></script>
+    <script type="module">
+        import clientApp from './client_app.js';
+
+        var queryString = window.location.search.substring(1);
+        var pairs = queryString.split('&');
+        var langTag = null;
+        var pcEnv = null;
+        console.log(' cest moiiiiiiiiiiiiiiiiiiiiiiiii ' );
+        console.log('queryString : '+ queryString);
+        console.log('pairs : '+ pairs);
+        for (var i = 0; i < pairs.length; i++)
+        {
+            var currParam = pairs[i].split('=');
+            if(currParam[0] === 'langTag') {
+                langTag = currParam[1];
+            } else if(currParam[0] === 'pcEnvironment') {
+                pcEnv = currParam[1];
+            } else if(currParam[0] === 'environment' && pcEnv === null) {
+                pcEnv = currParam[1];
+            }
+
+            if (langTag !== null) {
+                $.getJSON('./language.json', function(data) {
+                    $("#txtIncomingCall").text("\u260E " + data[langTag].IncomingCall);
+                    $("#txtName").text(data[langTag].Name + ": ");
+                    $("#txtNumber").text(data[langTag].Number + ": ");
+                    $("#txtStateInfo").text(data[langTag].StateInfo + ": ");
+                });
+            }
+        }
+
+        if(langTag === null){
+            $.getJSON('./language.json', function(data) {
+                $("#txtIncomingCall").text("\u260E " + data["en-us"].IncomingCall);
+                $("#txtName").text(data["en-us"].Name + ": ");
+                $("#txtNumber").text(data["en-us"].Number + ": ");
+                $("#txtStateInfo").text(data["en-us"].StateInfo + ": ");
+            });
+        }
+        
+        clientApp.setup(pcEnv, langTag, "index.html");
+        clientApp.purecloudClientApi = new window.purecloud.apps.ClientApp();
+    </script>
     <!-- <title>Hello, world!</title> -->
   </head>
   <body>
@@ -97,49 +140,7 @@
         });
       }
     </script> -->
-        <script type="module">
-        import clientApp from './client_app.js';
 
-        var queryString = window.location.search.substring(1);
-        var pairs = queryString.split('&');
-        var langTag = null;
-        var pcEnv = null;
-        console.log(' cest moiiiiiiiiiiiiiiiiiiiiiiiii ' );
-        console.log('queryString : '+ queryString);
-        console.log('pairs : '+ pairs);
-        for (var i = 0; i < pairs.length; i++)
-        {
-            var currParam = pairs[i].split('=');
-            if(currParam[0] === 'langTag') {
-                langTag = currParam[1];
-            } else if(currParam[0] === 'pcEnvironment') {
-                pcEnv = currParam[1];
-            } else if(currParam[0] === 'environment' && pcEnv === null) {
-                pcEnv = currParam[1];
-            }
-
-            if (langTag !== null) {
-                $.getJSON('./language.json', function(data) {
-                    $("#txtIncomingCall").text("\u260E " + data[langTag].IncomingCall);
-                    $("#txtName").text(data[langTag].Name + ": ");
-                    $("#txtNumber").text(data[langTag].Number + ": ");
-                    $("#txtStateInfo").text(data[langTag].StateInfo + ": ");
-                });
-            }
-        }
-
-        if(langTag === null){
-            $.getJSON('./language.json', function(data) {
-                $("#txtIncomingCall").text("\u260E " + data["en-us"].IncomingCall);
-                $("#txtName").text(data["en-us"].Name + ": ");
-                $("#txtNumber").text(data["en-us"].Number + ": ");
-                $("#txtStateInfo").text(data["en-us"].StateInfo + ": ");
-            });
-        }
-        
-        clientApp.setup(pcEnv, langTag, "index.html");
-        clientApp.purecloudClientApi = new window.purecloud.apps.ClientApp();
-    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>

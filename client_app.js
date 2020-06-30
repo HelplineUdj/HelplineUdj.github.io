@@ -2,7 +2,7 @@
 *   NOTE: This sample uses ES6.
 */
 import clientIDs from './clientIDs.js';
-
+console.log(' cest moiiiiiiiiiiiiiiiiiiiiiiiiizzzzzzzzzzzz ' );
 let clientApp = {};
 
 // PureCloud OAuth information
