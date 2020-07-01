@@ -253,18 +253,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Demander les trois premiers contacts externes à l'API
-    function requestExternalContacts() {
+    const requestExternalContacts = new Promise((resolve, reject) => {
         let apiInstance = new platformClient.ExternalContactsApi();
         let opts = {
             pageSize: 6,
             pageNumber: 1,
         };
-        let data = {};
         return apiInstance.getExternalcontactsContacts(opts).then((data) => {
-            return data;
+            resolve(data);
         });
-    }
-
+    });
     function updateProgressBar(percent) {
         document.querySelector(".progress-bar").style.width = `${percent}%`;
     }
