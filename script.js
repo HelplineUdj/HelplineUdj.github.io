@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let clientId = pcOAuthClientIds[pcEnvironment];
     if (!clientId) {
         setErrorState(
-            pcEnvironment + ': Unknown/Unsupported PureCloud Environment'
+            pcEnvironment + ': Unknown/Unsupported PureCloud Environment2'
         );
         return;
     }
