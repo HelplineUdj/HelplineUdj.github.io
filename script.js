@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
      * renvoyé via le paramètre de hachage d'état d'octroi implicite OAuth2.
      *
      * @returns Une chaîne indiquant l'env PC d'intégration (par exemple mypurecloud.com, mypurecloud.jp); sinon, null.
-     * /
+     */
     function getEmbeddingPCEnv() {
         let result = null;
 
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // OAuth2 spec dicte cet encodage
                 // Voir: https://tools.ietf.org/html/rfc6749#appendix-B
                 let stateSearch = unescape(oauthParams.state);
-                result = extractParams(stateSearch).pcEnvironment;
+                // result = extractParams(stateSearch).pcEnvironment;
             }
         }
 
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return result;
     }
-
+    
     // Demander les trois premiers contacts externes à l'API
     function requestExternalContacts() {
         let apiInstance = new platformClient.ExternalContactsApi();
