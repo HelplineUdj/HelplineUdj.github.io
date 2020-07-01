@@ -106,8 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Vérifiez si l'utilisateur actuel pourra voir les contacts externes
             let permissions = profileData.authorization.permissions;
             if (checkPermission(permissions, "externalContacts:contact:view")) {
-                requestExternalContacts()
-                    .then((data) => {
+                requestExternalContacts().then((data) => {
                         // Masquer la barre de progression une fois l'authentification terminée et la promesse résolue
                         let authenticatingEl = document.querySelector(
                             ".authenticating"
@@ -117,9 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         // Créer une table avec les données de l'appel API
                         for (let i = 0; i < entities.length; i++) {
                             let hasOrg = !!entities[i].externalOrganization;
-                            document
-                                .getElementById("tableBody")
-                                .insertAdjacentHTML(
+                            document.getElementById("tableBody").insertAdjacentHTML(
                                     "beforeend",
                                     `<tr>
                                         <td>
