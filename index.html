@@ -31,7 +31,8 @@
           const clientId = "d3d0641c-359c-4deb-8723-703f49075de9"
           const clientSecret = "_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg"
           client.loginClientCredentialsGrant(clientId,clientSecret)
-          .then(()=> {
+          .then((result)=> {
+            console.log(result);
             console.log('yes');
           })
           .catch((err) => {
