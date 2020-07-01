@@ -264,11 +264,29 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         return apiInstance.getExternalcontactsContacts(opts)
             .then(data => {
+                getconversation();
                 return data;
             });
     }
 
     function updateProgressBar(percent) {
         document.querySelector('.progress-bar').style.width = `${percent}%`;
+    }
+
+    function getconversation(){
+        let apiInstance = new platformClient.ConversationsApi();
+
+        let opts = { 
+          'communicationType': "communicationType_example" // String | Call or Chat communication filtering
+        };
+
+        apiInstance.getConversations(opts)
+          .then((data) => {
+            console.log(`getConversations success! data: ${JSON.stringify(data, null, 2)}`);
+          })
+          .catch((err) => {
+            console.log('There was a failure calling getConversations');
+            console.error(err);
+          });
     }
 });
