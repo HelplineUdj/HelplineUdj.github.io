@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
      * renvoyé via le paramètre de hachage d'état d'octroi implicite OAuth2.
      *
      * @returns Une chaîne indiquant l'env PC d'intégration (par exemple mypurecloud.com, mypurecloud.jp); sinon, null.
-     * /
+     */
     function getEmbeddingPCEnv() {
         let result = null;
 
