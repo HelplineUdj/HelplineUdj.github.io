@@ -27,12 +27,17 @@
     <script>
       // Note: You may need to use another event (e.g. load ) depending on how you load the script.
       document.addEventListener('DOMContentLoaded', function () {
-          var ClientApp = window.purecloud.apps.ClientApp;
-          var myClientApp = new ClientApp({
-              pcEnvironmentQueryParam: 'pcEnvironment'
+          const client = platformClient.ApiClient.instance;
+          const clientId = "d3d0641c-359c-4deb-8723-703f49075de9"
+          const clientSecret = "_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg"
+          client.loginClientCredentialsGrant(clientId,clientSecret)
+          .then(()=> {
+            console.log('yes');
+          })
+          .catch((err) => {
+           // Handle failure response
+           console.log(err);
           });
-
-          myClientApp.alerting.showToastPopup('Hello', 'PureCloud');
       });
   </script>
 </head>
