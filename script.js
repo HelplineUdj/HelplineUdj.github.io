@@ -257,19 +257,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Demander les trois premiers contacts externes à l'API
     function requestExternalContacts() {
-        let apiInstance = new platformClient.ExternalContactsApi();
-        let opts = {
-            pageSize: 6,
-            pageNumber: 1
+        let apiInstance = new platformClient.ConversationsApi();
+
+        let opts = { 
+          'communicationType': "communicationType_example" // String | Call or Chat communication filtering
         };
-        return apiInstance.getConversations(opts)
-              .then((data) => {
-                console.log(`getConversations success! data: ${JSON.stringify(data, null, 2)}`);
-              })
-              .catch((err) => {
-                console.log('There was a failure calling getConversations');
-                console.error(err);
-              });
+        apiInstance.getConversations(opts)
+          .then((data) => {
+            console.log(`getConversations success! data: ${JSON.stringify(data, null, 2)}`);
+            return data
+          })
+          .catch((err) => {
+            console.log('There was a failure calling getConversations');
+            console.error(err);
+          });
     }
 
     function updateProgressBar(percent) {
