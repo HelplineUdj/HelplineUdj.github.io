@@ -1,19 +1,85 @@
 <!DOCTYPE html>
-<!-- Script Tag -->
+<html>
+<!--
+        Démonstration pour illustrer myClientApp.externalContacts.showExternalContactProfile (...) et
+          myClientApp.externalContacts.showExternalOrganizationProfile (...) Méthodes SDK.
 
-<!-- Note: You can use the script from our CDN or host it locally -->
+        Remarque: Bien que cet exemple soit hébergé avec les autres ici sur github; ça ne marchera pas sans
+          configurer un client OAuth et l'héberger ailleurs. Voir le code js ci-dessous pour plus de détails.
+
+        Rappel: cet exemple utilise des CDN et du javascript simple pour illustrer le SDK. Les deux
+          SDK PureCloud et SDK Apps peuvent être obtenus via npm et prennent en charge de nombreux outils de construction
+          et des bibliothèques javascript pour s'adapter à votre environnement de développement.
+    -->
+
 <head>
-    <script src="https://sdk-cdn.mypurecloud.com/client-apps/<taggedversion>/purecloud-client-app-sdk-49c1570bfd8967d8861435e0e7178035.min.js"></script>
+    <meta charset="utf-8">
+    <title>PureCloud client-app-sdk External Contacts Demo</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+        integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
+        integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+    <script src="https://sdk-cdn.mypurecloud.com/javascript/72.0.0/purecloud-platform-client-v2.min.js"></script>
+    <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.4.0/purecloud-client-app-sdk-49c1570bfd8967d8861435e0e7178035.min.js"></script>
+    <script>
+      // Note: You may need to use another event (e.g. load ) depending on how you load the script.
+      document.addEventListener('DOMContentLoaded', function () {
+          var ClientApp = window.purecloud.apps.ClientApp;
+          var myClientApp = new ClientApp({
+              pcEnvironmentQueryParam: 'pcEnvironment'
+          });
+
+          myClientApp.alerting.showToastPopup('Hello', 'PureCloud');
+      });
+  </script>
 </head>
 
-<script>
-    // Note: You may need to use another event (e.g. load ) depending on how you load the script.
-    document.addEventListener('DOMContentLoaded', function () {
-        var ClientApp = window.purecloud.apps.ClientApp;
-        var myClientApp = new ClientApp({
-            pcEnvironmentQueryParam: 'pcEnvironment'
-        });
+<body>
+    <noscript>
+        <a href="http://www.enable-javascript.com/" target="_blank"></a>.
+    </noscript>
 
-        myClientApp.alerting.showToastPopup('Hello', 'PureCloud');
-    });
-</script>
+    <section class="authenticating">
+        <div class="progress">
+            <div class="progress-bar"></div>
+            <span class="progress-label">Authenticating to PureCloud</span>
+        </div>
+    </section>
+
+    <table class="contacts table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name:</th>
+                <th scope="col">Organization:</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+
+    <section class="manual-example">
+        <h2>Manual Testers</h2>
+        <div class="form-group contact-id">
+            <label for="contact-id">Contact Id:</label>
+            <input type="text" class="form-control" id="contact-id">
+        </div>
+        <div class="form-group">
+            <button type="button" id="contactButton" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="form-group org-id">
+            <label for="org-id">Organization Id:</label>
+            <input type="text" class="form-control" id="org-id">
+        </div>
+        <div class="form-group">
+            <button type="button" id="orgButton" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="form-group">
+            <div class="tester-note">[Note:] These testers intentionally bypass client-side permission checks.</div>
+        </div>
+    </section>
+</body>
+
+</html>
