@@ -102,30 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         })
         .then(function(profileData) {
-            userDataAcquired = true;
-            // Vérifiez si l'utilisateur actuel pourra voir les contacts externes
-            let permissions = profileData.authorization.permissions;
-            try {
-                if (checkPermission(permissions, "externalContacts:contact:view")) {
-                    requestExternalContacts().then((data) => {
-                            // Masquer la barre de progression une fois l'authentification terminée et la promesse résolue
-                            let authenticatingEl = document.querySelector(".authenticating");
-                            authenticatingEl.classList.add("hidden");
-                            let entities = data.entities;
-                            
-                            }
-                        }).catch((err) => {
-                            setErrorState(err);
-                        });
-                } else {
-                    setErrorState(
-                        "You do not have the proper permissions to view external contacts."
-                    );
-                }
-            } catch(e) {
-                // statements
-                console.log(e);
-            }
+          
         })
         .catch(function() {
             if (!authenticated) {
@@ -253,16 +230,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Demander les trois premiers contacts externes à l'API
-    const requestExternalContacts = new Promise((resolve, reject) => {
+    function requestExternalContacts() {
         let apiInstance = new platformClient.ExternalContactsApi();
         let opts = {
             pageSize: 6,
             pageNumber: 1,
         };
+        let data = {};
         return apiInstance.getExternalcontactsContacts(opts).then((data) => {
-            resolve(data);
+            return data;
         });
-    });
+    }
+
     function updateProgressBar(percent) {
         document.querySelector(".progress-bar").style.width = `${percent}%`;
     }
