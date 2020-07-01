@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     * la ou les clés de région spécifiées dans l'objet ci-dessous, déployez la page et configurez une application pour pointer vers cette URL.
     */
     let pcOAuthClientIds = { 'apps.mypurecloud.de': 'd3d0641c-359c-4deb-8723-703f49075de9:_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg' };
-    let clientId = pcOAuthClientIds['apps.mypurecloud.de'];//[pcEnvironment];
+    let clientId = pcOAuthClientIds[pcEnvironment];
     if (!clientId) {
         setErrorState(
             pcEnvironment + ': Unknown/Unsupported PureCloud Environment'
