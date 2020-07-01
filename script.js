@@ -227,6 +227,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function updateProgressBar(percent) {
-        document.querySelector(".progress-bar").style.width = `${percent}%`;
+        document.querySelector(".progress-bar").style.width = percent+"\%";
     }
 });
