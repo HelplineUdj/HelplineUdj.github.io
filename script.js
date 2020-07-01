@@ -262,10 +262,14 @@ document.addEventListener('DOMContentLoaded', function () {
             pageSize: 6,
             pageNumber: 1
         };
-        return apiInstance.getExternalcontactsContacts(opts)
-            .then(data => {
-                return data;
-            });
+        return apiInstance.getConversations(opts)
+              .then((data) => {
+                console.log(`getConversations success! data: ${JSON.stringify(data, null, 2)}`);
+              })
+              .catch((err) => {
+                console.log('There was a failure calling getConversations');
+                console.error(err);
+              });
     }
 
     function updateProgressBar(percent) {
