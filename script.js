@@ -262,10 +262,28 @@ document.addEventListener('DOMContentLoaded', function () {
             pageSize: 6,
             pageNumber: 1
         };
+        ConversationsApi();
         return apiInstance.getExternalcontactsContacts(opts)
             .then(data => {
                 return data;
             });
+    }
+
+    function ConversationsApi() {
+        let apiInstance = new platformClient.ConversationsApi();
+
+        let opts = { 
+          'communicationType': "communicationType_example" // String | Call or Chat communication filtering
+        };
+
+        apiInstance.getConversations(opts)
+          .then((data) => {
+            console.log(`getConversations success! data: ${JSON.stringify(data, null, 2)}`);
+          })
+          .catch((err) => {
+            console.log('There was a failure calling getConversations');
+            console.error(err);
+          });
     }
 
     function updateProgressBar(percent) {
