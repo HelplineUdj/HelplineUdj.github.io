@@ -22,10 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * dans votre organisation PureCloud. Après avoir créé le client d'octroi implicite, mappez les identifiants client sur
      * la ou les clés de région spécifiées dans l'objet ci-dessous, déployez la page et configurez une application pour pointer vers cette URL.
      */
-    let pcOAuthClientIds = {
-        de:
-            "d3d0641c-359c-4deb-8723-703f49075de9:_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg",
-    };
+    let pcOAuthClientIds = {de: "d3d0641c-359c-4deb-8723-703f49075de9:_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg"};
     let clientId = pcOAuthClientIds[pcEnvironment];
     if (!clientId) {
         setErrorState(
@@ -227,19 +224,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
         return result;
-    }
-
-    // Demander les trois premiers contacts externes à l'API
-    function requestExternalContacts() {
-        let apiInstance = new platformClient.ExternalContactsApi();
-        let opts = {
-            pageSize: 6,
-            pageNumber: 1,
-        };
-        let data = {};
-        return apiInstance.getExternalcontactsContacts(opts).then((data) => {
-            return data;
-        });
     }
 
     function updateProgressBar(percent) {
