@@ -290,12 +290,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Demander les trois premiers contacts externes à l'API
     function requestExternalContacts() {
+        console.log('florian ')
         let apiInstance = new platformClient.ExternalContactsApi();
         let opts = {
             pageSize: 6,
             pageNumber: 1,
         };
         return apiInstance.getExternalcontactsContacts(opts).then((data) => {
+            console.log('florian 3')
             return data;
         });
     }
