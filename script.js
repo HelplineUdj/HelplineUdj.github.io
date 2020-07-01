@@ -200,12 +200,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return isItem;
     }
 
-    /*
+    / **
      * Déterminez l'environnement PureCloud d'incorporation basé sur la chaîne de requête ou
      * renvoyé via le paramètre de hachage d'état d'octroi implicite OAuth2.
      *
      * @returns Une chaîne indiquant l'env PC d'intégration (par exemple mypurecloud.com, mypurecloud.jp); sinon, null.
-     */
+     * /
     function getEmbeddingPCEnv() {
         let result = null;
 
@@ -262,28 +262,10 @@ document.addEventListener('DOMContentLoaded', function () {
             pageSize: 6,
             pageNumber: 1
         };
-        ConversationsApi();
         return apiInstance.getExternalcontactsContacts(opts)
             .then(data => {
                 return data;
             });
-    }
-
-    function ConversationsApi() {
-        let apiInstance = new platformClient.ConversationsApi();
-
-        let opts = { 
-          'communicationType': "communicationType_example" // String | Call or Chat communication filtering
-        };
-
-        apiInstance.getConversations(opts)
-          .then((data) => {
-            console.log(`getConversations success! data: ${JSON.stringify(data, null, 2)}`);
-          })
-          .catch((err) => {
-            console.log('There was a failure calling getConversations');
-            console.error(err);
-          });
     }
 
     function updateProgressBar(percent) {
