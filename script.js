@@ -105,61 +105,65 @@ document.addEventListener("DOMContentLoaded", function() {
             userDataAcquired = true;
             // Vérifiez si l'utilisateur actuel pourra voir les contacts externes
             let permissions = profileData.authorization.permissions;
-            if (checkPermission(permissions, "externalContacts:contact:view")) {
-                requestExternalContacts().then((data) => {
-                        // Masquer la barre de progression une fois l'authentification terminée et la promesse résolue
-                        let authenticatingEl = document.querySelector(
-                            ".authenticating"
-                        );
-                        authenticatingEl.classList.add("hidden");
-                        let entities = data.entities;
-                        // Créer une table avec les données de l'appel API
-                        for (let i = 0; i < entities.length; i++) {
-                            let hasOrg = !!entities[i].externalOrganization;
-                            document.getElementById("tableBody").insertAdjacentHTML(
-                                    "beforeend",
-                                    `<tr>
-                                        <td>
-                                            <a id="entity-${i}"></a>
-                                        </td>
-                                        <td>
-                                            <a id="org-${i}"></a>
-                                        </td>
-                                    </tr>`
-                                );
-                            // Attacher des écouteurs à des entités pour appeler des méthodes sdk
-                            let entity = document.getElementById(`entity-${i}`);
-                            entity.addEventListener("click", function() {
-                                clientApp.externalContacts.showExternalContactProfile(
-                                    entities[i].id
-                                );
-                            });
-                            entity.appendChild(
-                                document.createTextNode(
-                                    `${entities[i].lastName}, ${
-                                        entities[i].firstName
-                                    }`
-                                )
+            try {
+                if (checkPermission(permissions, "externalContacts:contact:view")) {
+                    requestExternalContacts().then((data) => {
+                            // Masquer la barre de progression une fois l'authentification terminée et la promesse résolue
+                            let authenticatingEl = document.querySelector(
+                                ".authenticating"
                             );
-                            if (hasOrg) {
-                                let org = document.getElementById(`org-${i}`);
-                                let orgId = entities[i].externalOrganization.id;
-                                org.addEventListener("click", function() {
-                                    clientApp.externalContacts.showExternalOrganizationProfile(
-                                        orgId
+                            authenticatingEl.classList.add("hidden");
+                            let entities = data.entities;
+                            // Créer une table avec les données de l'appel API
+                            for (let i = 0; i < entities.length; i++) {
+                                let hasOrg = !!entities[i].externalOrganization;
+                                document.getElementById("tableBody").insertAdjacentHTML(
+                                        "beforeend",
+                                        `<tr>
+                                            <td>
+                                                <a id="entity-${i}"></a>
+                                            </td>
+                                            <td>
+                                                <a id="org-${i}"></a>
+                                            </td>
+                                        </tr>`
+                                    );
+                                // Attacher des écouteurs à des entités pour appeler des méthodes sdk
+                                let entity = document.getElementById(`entity-${i}`);
+                                entity.addEventListener("click", function() {
+                                    clientApp.externalContacts.showExternalContactProfile(
+                                        entities[i].id
                                     );
                                 });
-                                org.appendChild(document.createTextNode(orgId));
+                                entity.appendChild(
+                                    document.createTextNode(
+                                        `${entities[i].lastName}, ${
+                                            entities[i].firstName
+                                        }`
+                                    )
+                                );
+                                if (hasOrg) {
+                                    let org = document.getElementById(`org-${i}`);
+                                    let orgId = entities[i].externalOrganization.id;
+                                    org.addEventListener("click", function() {
+                                        clientApp.externalContacts.showExternalOrganizationProfile(
+                                            orgId
+                                        );
+                                    });
+                                    org.appendChild(document.createTextNode(orgId));
+                                }
                             }
-                        }
-                    })
-                    .catch((err) => {
-                        setErrorState(err);
-                    });
-            } else {
-                setErrorState(
-                    "You do not have the proper permissions to view external contacts."
-                );
+                        }).catch((err) => {
+                            setErrorState(err);
+                        });
+                } else {
+                    setErrorState(
+                        "You do not have the proper permissions to view external contacts."
+                    );
+                }
+            } catch(e) {
+                // statements
+                console.log(e);
             }
         })
         .catch(function() {
@@ -284,7 +288,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
         }
-
         return result;
     }
 
