@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
      *
      * Lecture de l'environnement PC à partir de la chaîne de requête ou du paramètre d'état renvoyé par la réponse OAuth2
      */
-    let pcEnvironment = getEmbeddingPCEnv();
+    let pcEnvironment = "mypurecloud.de"//getEmbeddingPCEnv();
     if (!pcEnvironment) {
         setErrorState(
             "Cannot identify App Embeddding context.  Did you forget to add pcEnvironment={{pcEnvironment}} to your app's query string?"
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * la ou les clés de région spécifiées dans l'objet ci-dessous, déployez la page et configurez une application pour pointer vers cette URL.
      */
     let pcOAuthClientIds = {"mypurecloud.de": "florian.zacchero:6789"};
-    let clientId = pcOAuthClientIds["mypurecloud.de"];
+    let clientId = pcOAuthClientIds[pcEnvironment];
     if (!clientId) {
         setErrorState(
             pcEnvironment + ": Unknown/Unsupported PureCloud Environment2"
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     } catch (e) {
         setErrorState(
-            pcEnvironment + ": Unknown/Unsupported PureCloud Embed Context"
+            pcEnvironment + ": Unknown/Unsupported PureCloud Embed Context3"
         );
         return;
     }
