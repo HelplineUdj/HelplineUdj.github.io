@@ -16,6 +16,7 @@
     <meta charset="utf-8">
     <title>PureCloud client-app-sdk External Contacts Demo</title>
 
+    <link rel="stylesheet" href="HelplineUdj.github.io/style2.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
         integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
         crossorigin="anonymous">
@@ -24,23 +25,7 @@
 
     <script src="https://sdk-cdn.mypurecloud.com/javascript/72.0.0/purecloud-platform-client-v2.min.js"></script>
     <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.4.0/purecloud-client-app-sdk-49c1570bfd8967d8861435e0e7178035.min.js"></script>
-    <script>
-      // Note: You may need to use another event (e.g. load ) depending on how you load the script.
-      document.addEventListener('DOMContentLoaded', function () {
-          const client = platformClient.ApiClient.instance;
-          const clientId = "florian.zacchero"
-          const clientSecret = "6789"
-          client.loginClientCredentialsGrant(clientId,clientSecret)
-          .then((result)=> {
-            console.log(result);
-            console.log('yes');
-          })
-          .catch((err) => {
-           // Handle failure response
-           console.log(err);
-          });
-      });
-  </script>
+    <script src="HelplineUdj.github.io/script.js"></script>
 </head>
 
 <body>
