@@ -1,76 +1,74 @@
 <!DOCTYPE html>
-<html>
-<!--
-        Démonstration pour illustrer myClientApp.externalContacts.showExternalContactProfile (...) et
-          myClientApp.externalContacts.showExternalOrganizationProfile (...) Méthodes SDK.
-
-        Remarque: Bien que cet exemple soit hébergé avec les autres ici sur github; ça ne marchera pas sans
-          configurer un client OAuth et l'héberger ailleurs. Voir le code js ci-dessous pour plus de détails.
-
-        Rappel: cet exemple utilise des CDN et du javascript simple pour illustrer le SDK. Les deux
-          SDK PureCloud et SDK Apps peuvent être obtenus via npm et prennent en charge de nombreux outils de construction
-          et des bibliothèques javascript pour s'adapter à votre environnement de développement.
-    -->
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>PureCloud client-app-sdk External Contacts Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Incoming Conversation</title>
 
-    <link rel="stylesheet" href="HelplineUdj.github.io/style2.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-        integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
-        integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' async type='text/css'>
+    <link rel="stylesheet" href="style.css">
 
-    <script src="https://sdk-cdn.mypurecloud.com/javascript/72.0.0/purecloud-platform-client-v2.min.js"></script>
-    <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.4.0/purecloud-client-app-sdk-49c1570bfd8967d8861435e0e7178035.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chronomouse@2.4.0/chronomouse.2.4.0.min.js"></script>
+    <script src="https://sdk-cdn.mypurecloud.com/client-apps/1.0.0/purecloud-client-app-sdk.js"></script>
+    <script src="https://sdk-cdn.mypurecloud.com/javascript/29.1.0/purecloud-platform-client-v2.min.js"></script>
     <script src="HelplineUdj.github.io/script.js"></script>
 </head>
-
 <body>
-    <noscript>
-        <a href="http://www.enable-javascript.com/" target="_blank"></a>.
-    </noscript>
+    <h1 id="txtIncomingCall"></h1>
+    <div>
+        <div id="txtName" class="floating field-title"></div>
+        <div id="callerName" class="floating field-value"></div>   
+    </div>
+    <div>
+        <div id="txtNumber" class="floating field-title"></div>
+        <div id="callerNumber" class="floating field-value"></div>   
+    </div>
+    <div>
+        <div id="txtStateInfo" class="floating field-title"></div>
+        <div id="callerArea" class="floating field-value"></div>   
+    </div>
 
-    <section class="authenticating">
-        <div class="progress">
-            <div class="progress-bar"></div>
-            <span class="progress-label">Authenticating to PureCloud</span>
-        </div>
-    </section>
+    <script type="module">
+        import clientApp from './client_app.js';
 
-    <table class="contacts table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Name:</th>
-                <th scope="col">Organization:</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-        </tbody>
-    </table>
+        var queryString = window.location.search.substring(1);
+        var pairs = queryString.split('&');
+        var langTag = null;
+        var pcEnv = null;
+        for (var i = 0; i < pairs.length; i++)
+        {
+            var currParam = pairs[i].split('=');
+            if(currParam[0] === 'langTag') {
+                langTag = currParam[1];
+            } else if(currParam[0] === 'pcEnvironment') {
+                pcEnv = currParam[1];
+            } else if(currParam[0] === 'environment' && pcEnv === null) {
+                pcEnv = currParam[1];
+            }
 
-    <section class="manual-example">
-        <h2>Manual Testers</h2>
-        <div class="form-group contact-id">
-            <label for="contact-id">Contact Id:</label>
-            <input type="text" class="form-control" id="contact-id">
-        </div>
-        <div class="form-group">
-            <button type="button" id="contactButton" class="btn btn-primary">Submit</button>
-        </div>
-        <div class="form-group org-id">
-            <label for="org-id">Organization Id:</label>
-            <input type="text" class="form-control" id="org-id">
-        </div>
-        <div class="form-group">
-            <button type="button" id="orgButton" class="btn btn-primary">Submit</button>
-        </div>
-        <div class="form-group">
-            <div class="tester-note">[Note:] These testers intentionally bypass client-side permission checks.</div>
-        </div>
-    </section>
-</body>
+            if (langTag !== null) {
+                $.getJSON('./language.json', function(data) {
+                    $("#txtIncomingCall").text("\u260E " + data[langTag].IncomingCall);
+                    $("#txtName").text(data[langTag].Name + ": ");
+                    $("#txtNumber").text(data[langTag].Number + ": ");
+                    $("#txtStateInfo").text(data[langTag].StateInfo + ": ");
+                });
+            }
+        }
 
+        if(langTag === null){
+            $.getJSON('./language.json', function(data) {
+                $("#txtIncomingCall").text("\u260E " + data["en-us"].IncomingCall);
+                $("#txtName").text(data["en-us"].Name + ": ");
+                $("#txtNumber").text(data["en-us"].Number + ": ");
+                $("#txtStateInfo").text(data["en-us"].StateInfo + ": ");
+            });
+        }
+        
+        clientApp.setup(pcEnv, langTag, "index.html");
+        clientApp.purecloudClientApi = new window.purecloud.apps.ClientApp();
+    </script>
+</body> 
 </html>
