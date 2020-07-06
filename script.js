@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
      * dans votre organisation PureCloud. Après avoir créé le client d'octroi implicite, mappez les identifiants client sur
      * la ou les clés de région spécifiées dans l'objet ci-dessous, déployez la page et configurez une application pour pointer vers cette URL.
      */
-    let pcOAuthClientIds = {"de": "florian.zacchero:6789"};
-    let clientId = pcOAuthClientIds["de"];
+    let pcOAuthClientIds = {"mypurecloud.de": "florian.zacchero:6789"};
+    let clientId = pcOAuthClientIds["mypurecloud.de"];
     if (!clientId) {
         setErrorState(
             pcEnvironment + ": Unknown/Unsupported PureCloud Environment2"
