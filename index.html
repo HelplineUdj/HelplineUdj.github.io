@@ -28,8 +28,8 @@
       // Note: You may need to use another event (e.g. load ) depending on how you load the script.
       document.addEventListener('DOMContentLoaded', function () {
           const client = platformClient.ApiClient.instance;
-          const clientId = "d3d0641c-359c-4deb-8723-703f49075de9"
-          const clientSecret = "_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg"
+          const clientId = "florian.zacchero"
+          const clientSecret = "6789"
           client.loginClientCredentialsGrant(clientId,clientSecret)
           .then((result)=> {
             console.log(result);
