@@ -1,6 +1,4 @@
-body {
-    padding: 10px;
-}
+
 
 #tableBody a {
     cursor: pointer;
@@ -20,4 +18,7 @@ body {
 .progress-label {
     position: relative;
     color: #000000;
+}
+body {
+    padding: 10px;
 }
