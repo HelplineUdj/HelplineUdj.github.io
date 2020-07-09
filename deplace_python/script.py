@@ -1,168 +1,81 @@
 #!/usr/bin/env python
-import socket, re, requests, webbrowser, urllib, urlparse, uuid, base64
+import base64, requests, sys, json
+import browser_cookie3
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+cookies = browser_cookie3.chrome(domain_name='apps.mypurecloud.de')
+headers = {
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36", 
+    "Accept-Encoding":"gzip, deflate", 
+    "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
+    "DNT":"1",
+    "Connection":"close", 
+    "Upgrade-Insecure-Requests":"1"
+}
+response = requests.get('https://apps.mypurecloud.de/', verify=False, headers=headers, cookies=cookies, timeout=3)
+print(response)
+print(response.text)
+# print("-----------------------------------------------")
+# print("- PureCloud Python Client Credentials Example -")
+# print("-----------------------------------------------")
 
-defaultResponseHeaders = 'Cache-Control: no-cache, no-store, must-revalidate\n' +\
-    'Pragma: no-cache\n' +\
-    'Expires: 0\n'
 
-sessionMap = {}
-clientId = "d3d0641c-359c-4deb-8723-703f49075de9"
-clientSecret = "_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg"
-redirectUri = 'http://localhost:8080/oauth2/callback'
-region = "mypurecloud.de"
 
-def getMe(token):
-    # Prepare for GET /api/v2/users/me request
-    requestHeaders = {
-        'Authorization': 'Bearer ' + token
-    }
+# # client_id = "d3d0641c-359c-4deb-8723-703f49075de9"
+# # client_secret = "_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg"
+# client_id = "d3d0641c-359c-4deb-8723-703f49075de9"
+# client_secret = "_zOFyAjpAnMVDGE3L0j4tlE-pSEvjbc7K7iGSl0xCCg"
+# # Base64 encode the client ID and client secret
+# authorization = base64.b64encode(bytes(client_id + ":" + client_secret, "ISO-8859-1")).decode("ascii")
 
-    # Get user
-    response = requests.get('https://api.mypurecloud.de/api/v2/users/me', headers=requestHeaders)
+# # Prepare for POST /oauth/token request
+# request_headers = {
+#     "Authorization": f"Basic {authorization}",
+#     "Content-Type": "application/x-www-form-urlencoded"
+# }
+# request_body = {
+#     "grant_type": "client_credentials"
+# }
 
-    # Check response
-    if response.status_code == 200:
-        return response.content
-    else:
-        print('Failure: ' + str(response.status_code) + ' - ' + response.reason)
-        return None
+# # Get token
+# response = requests.post("https://login.mypurecloud.de/oauth/token", data=request_body, headers=request_headers)
 
-def checkSession(path):
-    # Parse URL and querystring
-    url = urlparse.urlparse(path)
-    qs = urlparse.parse_qs(url.query)
+# # Check response
+# if response.status_code == 200:
+#     print("Got token")
+# else:
+#     print(f"Failure: { str(response.status_code) } - { response.reason }")
+#     sys.exit(response.status_code)
 
-    # Look for existing session
-    sessionKey = ''
-    sessionKeyArray = qs.get('sessionKey')
-    if sessionKeyArray is not None:
-        sessionKey = sessionKeyArray[0]
+# # Get JSON response body
+# response_json = response.json()
+# print(response_json)
 
-    if sessionKey != '':
-        # Return existing session
-        session = sessionMap.get(sessionKey)
 
-        # Log session key if session is found
-        if session is not None:
-            print('Session key: ' + sessionKey)
-        else:
-            print('Invalid session key encountered!')
+# # Prepare for GET /api/v2/authorization/roles request
+# requestHeaders = {
+#     "Authorization": f"{ response_json['token_type'] } { response_json['access_token']}"
+# }
 
-        # Will return the session or None of session key wasn't found
-        return session
-    elif qs.get('code') is not None:
-        # No session, but have an oauth code. Create a session
-        accessToken = getTokenFromCode(qs.get('code'))
+# # Get roles
+# response = requests.get("https://api.mypurecloud.de/api/v2/authorization/roles", headers=requestHeaders)
 
-        # Check token
-        if accessToken is None:
-            return None
+# # Check response
+# if response.status_code == 200:
+#     print("Got roles")
+# else:
+#     print(f"Failure: { str(response.status_code) } - { response.reason }")
+#     sys.exit(response.status_code)
 
-        # Create session object
-        sessionKey = str(uuid.uuid4());
-        session = { 
-            'access_token': accessToken,
-            'session_key': sessionKey
-        }
-        sessionMap[sessionKey] = session
+# # Print roles
+# print("\nRoles:")
+# for entity in response.json()["entities"]:
+#     print(f"  { entity['name'] }")
 
-        # Return new session
-        return session
-    else:
-        # Didn't find a session key or an oauth code
-        return None
+# # Get roles
+# response = requests.get("https://api.mypurecloud.de/api/v2/analytics/conversations/details", headers=requestHeaders)
+# print(response.json())
 
-def getTokenFromCode(code):
-    # Prepare for POST /oauth/token request
-    requestHeaders = {
-        'Authorization': 'Basic ' + base64.b64encode(clientId + ':' + clientSecret),
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    requestBody = {
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': redirectUri
-    }
+# print("\nDone")
 
-    # Get token
-    response = requests.post('https://login.mypurecloud.de/oauth/token', data=requestBody, headers=requestHeaders)
 
-    # Check response
-    if response.status_code == 200:
-        responseJson = response.json()
-        return responseJson['access_token']
-    else:
-        print('Failure: ' + str(response.status_code) + ' - ' + response.reason)
-        return None
-
-HOST, PORT = '', 8080
-
-listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-listen_socket.bind((HOST, PORT))
-listen_socket.listen(1)
-print('-----------------------------')
-print('- Serving HTTP on port %s -' % PORT)
-print('-----------------------------')
-
-webbrowser.open('http://localhost:' + str(PORT))
-
-while True:
-    client_connection, client_address = listen_socket.accept()
-    request = client_connection.recv(1024)
-
-    # Parse out request verb and path
-    matchObj = re.match(r'(GET) (\/.*) HTTP', request)
-    verb = matchObj.group(1)
-    path = matchObj.group(2)
-    print('[REQUEST] ' + verb + ' ' + path)
-
-    # Initialize vars
-    responseStatus = ''
-    responseBody = ''
-    http_response = ''
-    responseHeaders = defaultResponseHeaders
-
-    # Get session from session map
-    session = checkSession(path)
-
-    if session is None:
-        # No session, redirect to auth page
-        responseStatus = 'HTTP/1.1 303 See Other\n' +\
-            'Location: https://login.mypurecloud.de/oauth/authorize?' +\
-            'response_type=code' +\
-            '&client_id=' + clientId +\
-            '&redirect_uri=' + urllib.quote(redirectUri, safe='')
-    elif path.startswith('/oauth2/callback') and verb == 'GET':
-        # OAuth redirect callback, redirect to app page and include generated session_key
-        responseStatus = 'HTTP/1.1 303 See Other\n' +\
-            'Location: /my_info.html?sessionKey=' + session['session_key']
-    elif path.startswith('/my_info.html') and verb == 'GET':
-        # app's main page
-        with open('my_info.html', 'r') as htmlFile:
-            responseStatus = 'HTTP/1.1 200 OK'
-            responseBody = htmlFile.read()
-    elif path.startswith('/me') and verb == 'GET':
-        # Request to get /api/v2/users/me
-        me = getMe(session['access_token'])
-        if me is None:
-            responseStatus ='HTTP/1.1 404 NOT FOUND'
-            responseBody = '404: NOT FOUND'
-        else:
-            responseStatus = 'HTTP/1.1 200 OK'
-            responseHeaders += 'Content-Type: application/json\n'
-            responseBody = me
-    elif path.startswith('/') and verb == 'GET':
-        # Nothing here, redirect to main app's page
-        responseStatus = 'HTTP/1.1 303 See Other\n' +\
-            'Location: /my_info.html?sessionKey=' + session['session_key']
-    else:
-        # Invalid resource
-        responseStatus ='HTTP/1.1 404 NOT FOUND'
-        responseBody = '404: NOT FOUND'
-
-    # Send response
-    http_response = responseStatus + '\n' + responseHeaders + '\n' + responseBody
-    print('[RESPONSE] ' + responseStatus.splitlines()[0] + '\n')
-    client_connection.sendall(http_response)
-    client_connection.close()
