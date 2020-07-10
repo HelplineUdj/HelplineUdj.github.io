@@ -1,6 +1,7 @@
 /* 
 *   NOTE: This sample uses ES6.
 */
+console.log('Client App was called');
 let clientApp = {};
 
 // PureCloud OAuth information
