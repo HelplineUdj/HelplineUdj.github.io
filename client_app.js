@@ -530,5 +530,3 @@ clientApp.updateRow = function(data, state, wait, duration) {
         }
     })
 };
-
-export default clientApp
