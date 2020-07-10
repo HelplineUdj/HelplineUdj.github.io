@@ -22,7 +22,8 @@
                 console.log(data);
                 document.getElementById('Prenom').innerHTML = 'Prenom :'+data['name'].split(' ')[0];
                 document.getElementById('Nom').innerHTML = 'Nom : '+data['name'].split(' ')[1];
-                document.getElementById('Departement').innerHTML = 'Departement : '+data['Departement'].split(' ')[1];
+                document.getElementById('Departement').innerHTML = 'Departement : '+data['Departement'];
+                document.getElementById('Qualification').innerHTML = 'Qualification : '+data['title'];
 
             }
         });
