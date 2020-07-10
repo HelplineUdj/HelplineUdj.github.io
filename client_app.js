@@ -1,15 +1,12 @@
 /* 
 *   NOTE: This sample uses ES6.
 */
-import clientIDs from './clientIDs.js';
-console.log(' cest moiiiiiiiiiiiiiiiiiiiiiiiiizzzzzzzzzzzz ' );
 let clientApp = {};
 
 // PureCloud OAuth information
 const platformClient = require('platformClient');
 const client = platformClient.ApiClient.instance;
-// const redirectUri = "http://localhost:3000/";
-const redirectUri = "https://mypurecloud.github.io/purecloud-premium-app/";
+const redirectUri = "https://helplineudj.github.io/";
 
 // API instances
 const usersApi = new platformClient.UsersApi();
@@ -19,7 +16,7 @@ const routingApi = new platformClient.RoutingApi();
 
 // Will Authenticate through PureCloud and subscribe to User Conversation Notifications
 clientApp.setup = function(pcEnv, langTag, html){
-    let clientId = clientIDs[pcEnv] || clientIDs['mypurecloud.de'];
+    let clientId = '4d7b3393-c5ed-45de-9597-9a433cf174a5';
     clientApp.langTag = langTag;
 
     // Authenticate via PureCloud
