@@ -4,17 +4,19 @@ import browser_cookie3
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 cookies = browser_cookie3.chrome(domain_name='apps.mypurecloud.de')
-headers = {
-    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36", 
-    "Accept-Encoding":"gzip, deflate", 
-    "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
-    "DNT":"1",
-    "Connection":"close", 
-    "Upgrade-Insecure-Requests":"1"
-}
-response = requests.get('https://apps.mypurecloud.de/', verify=False, headers=headers, cookies=cookies, timeout=3)
-print(response)
-print(response.text)
+# headers = {
+#     "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36", 
+#     "Accept-Encoding":"gzip, deflate", 
+#     "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
+#     "DNT":"1",
+#     "Connection":"close", 
+#     "Upgrade-Insecure-Requests":"1"
+# }
+# response = requests.get('https://apps.mypurecloud.de/', verify=False, headers=headers, cookies=cookies, timeout=3)
+print(cookies)
+for c in cookies:
+    print(c)
+# print(response.text)
 # print("-----------------------------------------------")
 # print("- PureCloud Python Client Credentials Example -")
 # print("-----------------------------------------------")
