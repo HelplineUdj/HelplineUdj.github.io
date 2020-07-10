@@ -1,20 +1,45 @@
-<script>'use strict'</script>
-<!doctype html>
-<html lang="en">
+<html>
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Public Client Flow</title>
+    <script src='//code.jquery.com/jquery-1.11.2.min.js'></script>
+    <script>
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\#&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.hash);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
 
-    <!-- Style CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+    if(window.location.hash) {
+        console.log(location.hash);
+        var token = getParameterByName('access_token');
 
-    <!-- <title>Hello, world!</title> -->
-  </head>
-  <body>
-   
+        $.ajax({
+            url: "https://api.mypurecloud.de/api/v2/users/me",
+            type: "GET",
+            beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'bearer ' + token);},
+            success: function(data) {
+                console.log(data);
+                document.getElementById('Prenom').innerHTML = data['name'].split(' ')[0];
+                document.getElementById('Nom').innerHTML = data['name'].split(' ')[1];
+
+            }
+        });
+
+        location.hash=''
+
+    } else {
+        var queryStringData = {
+            response_type : "token",
+            client_id : "4d7b3393-c5ed-45de-9597-9a433cf174a5",
+            redirect_uri : "https://helplineudj.github.io/"
+        }
+
+        window.location.replace("https://login.mypurecloud.de/oauth/authorize?" + jQuery.param(queryStringData));
+    }
+    </script>
+</head>
+<body>
     <div class="container">
       <div class="row">
         <div class="col">
@@ -27,75 +52,12 @@
       <div class="row">
         <div class="col">
           <ul class="list-group">
-            <li class="list-group-item">Nom : </li>
-            <li class="list-group-item">Prenom : </li>
-            <li class="list-group-item">Departement : </li>
-            <li class="list-group-item">Qualification : </li>
+            <li class="list-group-item" id="Nom">Nom : </li>
+            <li class="list-group-item" id="Prenom">Prenom : </li>
+            <li class="list-group-item" id="Departement">Departement : </li>
+            <li class="list-group-item" id="Qualification">Qualification : </li>
           </ul>
         </div>
       </div><br>
-      <div class="row">
-        <div class="col-sm-4 text-center">
-         <a href="#"> <img id="snow" src="SNOW_Logo1.png" class="w-25 p-2" style="border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;" alt="Service Now img"></a>
-         <button type="button" style=" border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;margin-left:8%;background-color: white;color: black;" class="btn btn-lg btn-primary">PUC</button>
-        </div>
-        <!-- <div class="col">
-          <button type="button" style="width: 30%;height:95%;border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.5em;" class="btn btn-primary">PUC</button>
-        </div> -->
-      </div><br>
-
-      <!-- <div class="row align-items-center">
-        <div class="col-sm">
-          <button type="button" class="btn btn-primary" style="background-color:#eceffd;border-color: #eceffd;"><img id="snow" src="SNOW_Logo1.png" class="img-responsive" alt="Service Now img"></button>
-          <button type="button" class="btn btn-primary"  style="background-color:#eceffd;border-color: #eceffd;color: black;font-size: 0.98rem;font-weight: 400;">PUC</button>
-        </div>
-      </div> -->
-      <div class="row">
-        <div class="col">
-          <h1 id="hUDJ" class="h6">BY UDJ</h1><img id="udj" src="udj logo.jpg" class="img-responsive" style="width:5%;margin-left:2%;" alt="UDJ img">
-        </div>
-      </div>
-      <!-- <div class="row">
-        <div class="col-sm-5 text-center">
-          <button onclick="myFunction()" type="button" style="width: 27%;height:95%;border: 0.6mm ridge rgb(93, 126, 233); border-radius: 1.3em;margin-left:8%;background-color: white;color: black;" class="btn btn-primary">Test</button>
-        </div>
-      </div> -->
-    </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- Include requirejs -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
-
-    <script type="text/javascript">
-      // Obtain a reference to the platformClient object
-      requirejs(['https://sdk-cdn.mypurecloud.com/javascript/amd/83.0.0/purecloud-platform-client-v2.min.js'], (platformClient) => {
-        console.log(platformClient);
-      });
-    </script> -->
-    <!-- Include requirejs -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
-
-    <script type="text/javascript">
-      // Obtain a reference to the platformClient object
-      require(['https://sdk-cdn.mypurecloud.com/javascript/amd/83.0.0/purecloud-platform-client-v2.min.js'], (platformClient) => {
-        console.log(platformClient);
-      });
-    </script>
-    <script>
-
-      function myFunction() {
-        //use that session to interface with the API
-        var users = new platformClient.UsersApi();
-        console.log("getting ME");
-        users.getUsersMe().then(function(userObject){
-            console.log("got me");
-            console.log(userObject);
-            console.log("done");
-        });
-      }
-    </script> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
