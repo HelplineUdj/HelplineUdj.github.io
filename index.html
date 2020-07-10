@@ -22,7 +22,7 @@
                 console.log(data);
                 document.getElementById('Prenom').innerHTML = 'Prenom : '+data['name'].split(' ')[0];
                 document.getElementById('Nom').innerHTML = 'Nom : '+data['name'].split(' ')[1];
-                document.getElementById('Departement').innerHTML = 'Departement : '+data['department'];
+                document.getElementById('department').innerHTML = 'department : '+data['department'];
                 document.getElementById('Qualification').innerHTML = 'Qualification : '+data['title'];
 
             }
@@ -56,7 +56,7 @@
           <ul class="list-group">
             <li class="list-group-item" id="Nom">Nom : </li>
             <li class="list-group-item" id="Prenom">Prenom : </li>
-            <li class="list-group-item" id="Departement">Departement : </li>
+            <li class="list-group-item" id="department">Departement : </li>
             <li class="list-group-item" id="Qualification">Qualification : </li>
           </ul>
         </div>
