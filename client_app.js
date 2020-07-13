@@ -22,7 +22,7 @@ clientApp.setup = function(pcEnv, langTag, html){
 
     // Authenticate via PureCloud
     client.setPersistSettings(true);
-    client.setDebugLog(console.log, 25);
+    client.setDebugLog(console.log, 10); // plus verbeux 
     client.setEnvironment("mypurecloud.de");
     client.loginImplicitGrant(clientId, redirectUri, { state: "state" })
     .then(data => {
@@ -47,9 +47,10 @@ clientApp.setup = function(pcEnv, langTag, html){
         clientApp.topicIdAgent = "v2.users." + clientApp.userId + ".conversations.calls";
 
         // Subscribe to Call Conversations of Current user.
-        let topic = [{"id": clientApp.topicIdAgent}];
+        let topic = [{"id": clientApp.topicIdAgent,"selfUri": ""}];
         console.log('clientApp.channelID444' + clientApp.channelID);
-        return notificationsApi.postNotificationsChannelSubscriptions(clientApp.channelID, topic);
+        let body = [{}]; // Object | Body
+        return notificationsApi.postNotificationsChannelSubscriptions(clientApp.channelID, body);
     }).then(
         $.getJSON('./language.json', function(data) {
             clientApp.language = data;
