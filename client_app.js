@@ -31,6 +31,8 @@ clientApp.setup = function(pcEnv, langTag, html){
         return usersApi.getUsersMe();
     }).then( userMe => {
         clientApp.userId = userMe.id;
+        console.log("----------------");
+        console.log(userMe);
         document.getElementById('Prenom').innerHTML = 'Prenom : '+userMe['name'].split(' ')[0];
         document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
         document.getElementById('department').innerHTML = 'department : '+userMe['department'];
