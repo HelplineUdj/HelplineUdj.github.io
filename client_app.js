@@ -22,6 +22,7 @@ clientApp.setup = function(pcEnv, langTag, html){
 
     // Authenticate via PureCloud
     client.setPersistSettings(true);
+    client.setDebugLog(console.log, 25);
     client.setEnvironment("mypurecloud.de");
     client.loginImplicitGrant(clientId, redirectUri, { state: "state" })
     .then(data => {
@@ -46,6 +47,7 @@ clientApp.setup = function(pcEnv, langTag, html){
 
         // Subscribe to Call Conversations of Current user.
         let topic = [{"id": clientApp.topicIdAgent}];
+        console.log('clientApp.channelID' + clientApp.channelID);
         return notificationsApi.postNotificationsChannelSubscriptions(clientApp.channelID, topic);
     }).then(
         $.getJSON('./language.json', function(data) {
@@ -70,7 +72,6 @@ clientApp.onSocketMessage = function(event){
     if(topic === clientApp.topicIdAgent){
         let caller = eventBody.participants.filter(participant => participant.purpose === "customer")[0];
         let agent = eventBody.participants.filter(participant => participant.purpose === "agent")[0];
-        clientApp.onSocketMessageQueue(event);
         // Put values to the fields
         if((caller.endTime !== undefined) && (!clientApp.isCallActive)){
             $("#callerName").text("");
