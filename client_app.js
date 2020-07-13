@@ -17,7 +17,6 @@ const routingApi = new platformClient.RoutingApi();
 
 // Will Authenticate through PureCloud and subscribe to User Conversation Notifications
 clientApp.setup = function(pcEnv, langTag, html){
-    console.log("TOTO was here !");
     let clientId = '4d7b3393-c5ed-45de-9597-9a433cf174a5';
     clientApp.langTag = langTag;
 
@@ -531,3 +530,5 @@ clientApp.updateRow = function(data, state, wait, duration) {
         }
     })
 };
+
+export default clientApp;
