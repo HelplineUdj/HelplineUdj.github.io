@@ -251,10 +251,10 @@ clientApp.getActiveConversation = function(queue){
 clientApp.onSocketMessageQueue = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
-
+    console.log('flozac77')
     // If an interaction (from queue) comes in
     if(topic === clientApp.topicIdSup){
-        console.log('flozac77')
+        
         // Check to see if Conversation details is already displayed in the view
         if ($('#tblCallerDetails td:contains(' + data.eventBody.id + ')').length) {
             clientApp.updateTableRow(data);            
