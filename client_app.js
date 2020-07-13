@@ -39,6 +39,7 @@ clientApp.setup = function(pcEnv, langTag, html){
         // Create a Notifications Channel
         return notificationsApi.postNotificationsChannels();
     }).then(data => {
+        console.log('data.id' + data.id);
         clientApp.websocketUri = data.connectUri;
         clientApp.channelID = data.id;
         clientApp.socket = new WebSocket(clientApp.websocketUri);
@@ -47,7 +48,7 @@ clientApp.setup = function(pcEnv, langTag, html){
 
         // Subscribe to Call Conversations of Current user.
         let topic = [{"id": clientApp.topicIdAgent}];
-        console.log('clientApp.channelID' + clientApp.channelID);
+        console.log('clientApp.channelID444' + clientApp.channelID);
         return notificationsApi.postNotificationsChannelSubscriptions(clientApp.channelID, topic);
     }).then(
         $.getJSON('./language.json', function(data) {
