@@ -87,14 +87,14 @@ clientApp.onSocketMessage = function(event){
             $("#callerName").text(caller.name);
             $("#callerNumber").text(caller.address);
 
-            getLocalInfo(caller.address,{
-                military: false,
-                zone_display: 'area'
-                }, object => {
-                    $("#callerArea").text(object.time.display +' '+ object.location);
-                    callerLocation = object.location;
-                }
-            );
+//            getLocalInfo(caller.address,{
+//                military: false,
+//                zone_display: 'area'
+//                }, object => {
+//                    $("#callerArea").text(object.time.display +' '+ object.location);
+//                    callerLocation = object.location;
+//                }
+//            );
             
             // Makes sure that the field only changes the first time. 
             clientApp.isCallActive = true;
