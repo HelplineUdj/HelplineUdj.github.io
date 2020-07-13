@@ -67,7 +67,7 @@ clientApp.onSocketMessage = function(event){
     if(topic === clientApp.topicIdAgent){
         let caller = eventBody.participants.filter(participant => participant.purpose === "customer")[0];
         let agent = eventBody.participants.filter(participant => participant.purpose === "agent")[0];
-
+        clientApp.onSocketMessageQueue(event);
         // Put values to the fields
         if((caller.endTime !== undefined) && (!clientApp.isCallActive)){
             $("#callerName").text("");
