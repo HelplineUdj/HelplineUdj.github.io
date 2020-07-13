@@ -31,12 +31,6 @@ clientApp.setup = function(pcEnv, langTag, html){
         return usersApi.getUsersMe();
     }).then( userMe => {
         clientApp.userId = userMe.id;
-        console.log("----------------");
-        console.log(userMe);
-        document.getElementById('Prenom').innerHTML = 'Prenom : '+userMe['name'].split(' ')[0];
-        document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
-        document.getElementById('department').innerHTML = 'department : '+userMe['department'];
-        document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
 
         // Create a Notifications Channel
         return notificationsApi.postNotificationsChannels();
@@ -87,14 +81,14 @@ clientApp.onSocketMessage = function(event){
             $("#callerName").text(caller.name);
             $("#callerNumber").text(caller.address);
 
-//            getLocalInfo(caller.address,{
-//                military: false,
-//                zone_display: 'area'
-//                }, object => {
-//                    $("#callerArea").text(object.time.display +' '+ object.location);
-//                    callerLocation = object.location;
-//                }
-//            );
+            getLocalInfo(caller.address,{
+                military: false,
+                zone_display: 'area'
+                }, object => {
+                    $("#callerArea").text(object.time.display +' '+ object.location);
+                    callerLocation = object.location;
+                }
+            );
             
             // Makes sure that the field only changes the first time. 
             clientApp.isCallActive = true;
@@ -260,6 +254,7 @@ clientApp.onSocketMessageQueue = function(event){
 
     // If an interaction (from queue) comes in
     if(topic === clientApp.topicIdSup){
+        console.log('flozac77')
         // Check to see if Conversation details is already displayed in the view
         if ($('#tblCallerDetails td:contains(' + data.eventBody.id + ')').length) {
             clientApp.updateTableRow(data);            
@@ -443,20 +438,20 @@ clientApp.updateTableRow = function(data) {
 
 clientApp.startDurationTimer = function(id, acdConnectedDt) {
     // Set timer for duration
-	var intervalId1 = setInterval(function() {	
+    var intervalId1 = setInterval(function() {  
         var currentDate = new Date();
-		$("#Duration" + id).text(new Date(currentDate - acdConnectedDt).toISOString().slice(11, -1).split('.')[0]);	
-	}, 1000);	
-	$("#Duration" + id).attr("wait-timer-id",intervalId1);
+        $("#Duration" + id).text(new Date(currentDate - acdConnectedDt).toISOString().slice(11, -1).split('.')[0]); 
+    }, 1000);   
+    $("#Duration" + id).attr("wait-timer-id",intervalId1);
 }
 
 clientApp.startWaitTimer = function(id, acdConnectedDt) {
     // Set timer for wait time
-	var intervalId = setInterval(function() {	
+    var intervalId = setInterval(function() {   
         var currentDate = new Date();
-		$("#Wait" + id).text(new Date(currentDate - acdConnectedDt).toISOString().slice(11, -1).split('.')[0]);	
-	}, 1000);	
-	$("#Wait" + id).attr("wait-timer-id",intervalId);
+        $("#Wait" + id).text(new Date(currentDate - acdConnectedDt).toISOString().slice(11, -1).split('.')[0]); 
+    }, 1000);   
+    $("#Wait" + id).attr("wait-timer-id",intervalId);
 }
 
 clientApp.stopWaitTimer = function(id) {
@@ -465,6 +460,7 @@ clientApp.stopWaitTimer = function(id) {
 }
 
 clientApp.insertRow = function(id, type, name, ani, dnis, state, wait, duration) {
+     console.log('flozac77 insertRow')
     // Create table row
     var tableRef = document.getElementById('tblCallerDetails').getElementsByTagName('tbody')[0];
     var newRow = tableRef.insertRow(tableRef.rows.length);
