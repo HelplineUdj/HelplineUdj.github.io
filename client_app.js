@@ -48,7 +48,7 @@ clientApp.setup = function(pcEnv, langTag, html){
 
         // Subscribe to Call Conversations of Current user.
         let topic = [{"id": clientApp.topicIdAgent,"selfUri": ""}];
-        console.log('clientApp.channelID444' + clientApp.channelID);
+        console.log('clientApp.channelID' + clientApp.channelID);
         let body = [{}]; // Object | Body
         return notificationsApi.postNotificationsChannelSubscriptions(clientApp.channelID, body);
     }).then(
