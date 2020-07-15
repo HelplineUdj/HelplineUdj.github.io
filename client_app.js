@@ -61,6 +61,8 @@ clientApp.setup = function(pcEnv, langTag, html){
 
 // Handler for every Websocket message
 clientApp.onSocketMessage = function(event){
+    console.log('EVENT: ');
+    console.log(event);
     let data = JSON.parse(event.data);
     let topic = data.topicName;
     let eventBody = data.eventBody;
