@@ -258,7 +258,7 @@ clientApp.getActiveConversation = function(queue){
 clientApp.onSocketMessageQueue = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
-    console.log('flozac7vvuy')
+    console.log('flozac7vvuyazzaaaaaaaaaaaaaaaaaa')
     // If an interaction (from queue) comes in
     
         
@@ -280,7 +280,9 @@ clientApp.addTableRow = function(data) {
     
     // Call Conversation Type
     if((caller.calls !== undefined) && (caller.chats === undefined) && (caller.callbacks === undefined) && (caller.emails === undefined)) {
+        console.log('caller.calls !== undefined')
         if ((agent === undefined) && (acd.calls[0].state === "connected")) {
+            console.log('caller.calls !== undefined 222222222')
             // Call on queue
             clientApp.insertRow(data.eventBody.id, "Call", caller.name, caller.address, caller.calls[0].other.addressNormalized, "on queue");            
             clientApp.startDurationTimer(data.eventBody.id, new Date(acd.connectedTime));
