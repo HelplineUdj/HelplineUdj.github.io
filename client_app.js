@@ -264,8 +264,10 @@ clientApp.onSocketMessageQueue = function(event){
         
     // Check to see if Conversation details is already displayed in the view
     if ($('#tblCallerDetails td:contains(' + data.eventBody.id + ')').length) {
+        console.log('updateTableRow')
         clientApp.updateTableRow(data);            
     } else {
+        console.log('addTableRow')
         clientApp.addTableRow(data);
     }
     
