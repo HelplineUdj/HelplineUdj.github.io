@@ -96,11 +96,12 @@ clientApp.onSocketMessage = function(event){
                 }
             );
             
-            // Makes sure that the field only changes the first time. 
+            // S'assure que le champ ne change que la première fois. 
             clientApp.isCallActive = true;
             
             clientApp.toastIncomingCall(callerLocation);
         } else {
+            clientApp.onSocketMessageQueue(event);
             clientApp.isCallActive = false;
         }
     }
