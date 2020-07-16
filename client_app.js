@@ -65,7 +65,7 @@ clientApp.onSocketMessage = function(event){
     let eventBody = data.eventBody;
     console.log('DATA: ');
     console.table(data);
-    clientApp.subscribeToQueue(data.eventBody.participants[0].queue.id)
+    
     console.log('TOPIC: ');
     console.table(topic);
     console.log('EVENTBODY: ');
@@ -73,6 +73,7 @@ clientApp.onSocketMessage = function(event){
     console.log(topic +" , "+ clientApp.topicIdAgent)
     // If a voice interaction (from queue) comes in
     if(topic === clientApp.topicIdAgent){
+        clientApp.subscribeToQueue(data.eventBody.participants[0].queue.id)
         let caller = eventBody.participants.filter(participant => participant.purpose === "customer")[0];
         let agent = eventBody.participants.filter(participant => participant.purpose === "agent")[0];
         // Put values to the fields
@@ -539,7 +540,7 @@ clientApp.updateRow = function(data, state, wait, duration) {
 
                 // Remove row from table
                 var thisRow = $(this);
-                thisRow.remove();                
+                thisRow.remove();
             } else {
                 $(this).find('td:eq(5)').text(state);
                 $(this).find('td:eq(6)').text(wait);
