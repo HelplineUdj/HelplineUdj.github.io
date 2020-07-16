@@ -63,14 +63,14 @@ clientApp.onSocketMessage = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
     let eventBody = data.eventBody;
-    console.log('DATA: ');
+/*    console.log('DATA: ');
     console.table(data);
     
     console.log('TOPIC: ');
     console.table(topic);
     console.log('EVENTBODY: ');
     console.table(eventBody);
-    console.log(topic +" , "+ clientApp.topicIdAgent)
+    console.log(topic +" , "+ clientApp.topicIdAgent)*/
     // If a voice interaction (from queue) comes in
     if(topic === clientApp.topicIdAgent){
         clientApp.subscribeToQueue(data.eventBody.participants[0].queue.id)
