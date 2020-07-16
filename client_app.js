@@ -362,11 +362,7 @@ clientApp.updateTableRow = function(data) {
 
     // Call Conversation Type
     if((caller.calls !== undefined) && (caller.chats === undefined) && (caller.callbacks === undefined) && (caller.emails === undefined)) {
-        if((acd.endTime === undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
-            // If incoming call
-            clientApp.updateRow(data, agent.calls[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
-            clientApp.isCallActiveSup = false;
-        } else if((acd.endTime !== undefined) && (caller.endTime === undefined) && (agent !== undefined)) {
+        if((acd.endTime !== undefined) && (caller.endTime === undefined) && (agent !== undefined)) {
             // If active call
             var wait = new Date((new Date(acd.connectedTime)) - (new Date(caller.connectedTime))).toISOString().slice(11, -1);
             clientApp.updateRow(data, agent.calls[0].state, wait, $("#Duration" + data.eventBody.id).text());
@@ -380,6 +376,9 @@ clientApp.updateTableRow = function(data) {
                 clientApp.updateRow(data, agent.calls[0].state, wait, duration);
                 clientApp.isCallActiveSup = false;
             }        
+        }else {
+            clientApp.updateRow(data, agent.calls[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
+            clientApp.isCallActiveSup = false;
         }
     }
     
