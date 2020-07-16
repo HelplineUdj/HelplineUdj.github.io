@@ -294,7 +294,7 @@ clientApp.addTableRow = function(data) {
             clientApp.startDurationTimer(data.eventBody.id, new Date(acd.connectedTime));
             clientApp.startWaitTimer(data.eventBody.id, new Date(acd.connectedTime));
             clientApp.isCallActiveSup = false;
-        } else if((acd.endTime === undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
+        } else if((acd.endTime !== undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
             // If incoming call
             clientApp.insertRow(data.eventBody.id, "Call", caller.name, caller.address, caller.calls[0].other.addressNormalized, agent.calls[0].state);            
             clientApp.startDurationTimer(data.eventBody.id, new Date(acd.connectedTime));
