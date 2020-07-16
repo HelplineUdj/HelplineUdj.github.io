@@ -65,6 +65,7 @@ clientApp.onSocketMessage = function(event){
     let eventBody = data.eventBody;
     console.log('DATA: ');
     console.table(data);
+    clientApp.subscribeToQueue(data.queue.id)
     console.log('TOPIC: ');
     console.table(topic);
     console.log('EVENTBODY: ');
@@ -101,7 +102,7 @@ clientApp.onSocketMessage = function(event){
             
             clientApp.toastIncomingCall(callerLocation);
         } else {
-            clientApp.onSocketMessageQueue(event);
+            /*clientApp.onSocketMessageQueue(event);*/
             clientApp.isCallActive = false;
         }
     }
@@ -258,19 +259,19 @@ clientApp.getActiveConversation = function(queue){
 clientApp.onSocketMessageQueue = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
-    console.log('flozac7vvuyazzvvvvvvvvvvvvvvvvv')
+    console.log('flozac7vvuyaaav')
     // If an interaction (from queue) comes in
     
-        
-    // Check to see if Conversation details is already displayed in the view
-    if ($('#tblCallerDetails td:contains(' + data.eventBody.id + ')').length) {
-        console.log('updateTableRow')
-        clientApp.updateTableRow(data);            
-    } else {
-        console.log('addTableRow')
-        clientApp.addTableRow(data);
+    if(topic === clientApp.topicIdSup){    
+        // Check to see if Conversation details is already displayed in the view
+        if ($('#tblCallerDetails td:contains(' + data.eventBody.id + ')').length) {
+            console.log('updateTableRow')
+            clientApp.updateTableRow(data);            
+        } else {
+            console.log('addTableRow')
+            clientApp.addTableRow(data);
+        }
     }
-    
 };
 
 clientApp.addTableRow = function(data) {
