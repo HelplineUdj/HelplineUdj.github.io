@@ -63,9 +63,9 @@ clientApp.onSocketMessage = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
     let eventBody = data.eventBody;
-    console.log("flozac: data " + data);
-    console.log("flozac: topic " + topic);
-    console.log("flozac: eventBody " + eventBody);
+    console.log("flozac: data " + Object.values(data));
+    console.log("flozac: topic " + Object.values(topic));
+    console.log("flozac: eventBody " + Object.values(eventBody));
     
     // If a voice interaction (from queue) comes in
     if(topic === clientApp.topicIdAgent){
