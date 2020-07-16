@@ -258,7 +258,7 @@ clientApp.getActiveConversation = function(queue){
 clientApp.onSocketMessageQueue = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
-    console.log('flozac77')
+    console.log('flozac7vvuy')
     // If an interaction (from queue) comes in
     
         
