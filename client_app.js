@@ -50,7 +50,7 @@ clientApp.setup = function(pcEnv, langTag, html){
         $.getJSON('./language.json', function(data) {
             clientApp.language = data;
         })
-    ).then(data => console.log("Succesfully set-up Client App. : "+ data))
+    ).then(data => console.log("Succesfully set-up Client App. : "+ Object.values(data)))
 
     // Error Handling
     .catch(e => console.log(e));
@@ -63,9 +63,9 @@ clientApp.onSocketMessage = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
     let eventBody = data.eventBody;
-    console.log("flozac: data " + Object.values(data));
-    console.log("flozac: topic " + Object.values(topic));
-    console.log("flozac: eventBody " + Object.values(eventBody));
+    console.table(data);
+    console.table(topic);
+    console.table(eventBody);
     
     // If a voice interaction (from queue) comes in
     if(topic === clientApp.topicIdAgent){
