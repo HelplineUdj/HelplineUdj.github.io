@@ -47,13 +47,13 @@ clientApp.setup = function(pcEnv, langTag, html){
 
         // Subscribe to Call Conversations of Current user.
         let topic = [{"id": clientApp.topicIdAgent}];
-        console.log('clientApp.channelID' + clientApp.channelID);
+        console.log('flozac data: ' + data);
         return notificationsApi.postNotificationsChannelSubscriptions(clientApp.channelID, topic);
     }).then(
         $.getJSON('./language.json', function(data) {
             clientApp.language = data;
         })
-    ).then(data => console.log("Succesfully set-up Client App."))
+    ).then(data => console.log("Succesfully set-up Client App. : "+ data))
 
     // Error Handling
     .catch(e => console.log(e));
