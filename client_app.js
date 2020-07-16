@@ -65,7 +65,7 @@ clientApp.onSocketMessage = function(event){
     let eventBody = data.eventBody;
     console.log('DATA: ');
     console.table(data);
-    clientApp.subscribeToQueue(data.participants[0].queue.id)
+    clientApp.subscribeToQueue(data.eventBody.participants[0].queue.id)
     console.log('TOPIC: ');
     console.table(topic);
     console.log('EVENTBODY: ');
