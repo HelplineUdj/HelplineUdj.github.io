@@ -277,7 +277,12 @@ clientApp.addTableRow = function(data) {
     let caller = data.eventBody.participants.filter(participant => participant.purpose === "customer")[0];    
     let agent = data.eventBody.participants.filter(participant => participant.purpose === "agent")[0];    
     let acd = data.eventBody.participants.filter(participant => participant.purpose === "acd")[0];
-    
+    console.log('caller: ');
+    console.log(caller);
+    console.log('agent: ');
+    console.log(agent);
+    console.log('acd: ');
+    console.log(acd);
     // Call Conversation Type
     if((caller.calls !== undefined) && (caller.chats === undefined) && (caller.callbacks === undefined) && (caller.emails === undefined)) {
         console.log('caller.calls !== undefined')
