@@ -25,9 +25,7 @@ clientApp.setup = function(pcEnv, langTag, html){
     // client.setDebugLog(console.log, 25);
     client.setEnvironment("mypurecloud.de");
     client.loginImplicitGrant(clientId, redirectUri, { state: "state" })
-    .then(data => {
-        console.log(Object.values(data));
-        
+    .then(data => {        
         // Get Details of current User and save to Client App
         return usersApi.getUsersMe();
     }).then( userMe => {
@@ -47,13 +45,12 @@ clientApp.setup = function(pcEnv, langTag, html){
 
         // Subscribe to Call Conversations of Current user.
         let topic = [{"id": clientApp.topicIdAgent}];
-        console.log('flozac data: ' +Object.values(data));
         return notificationsApi.postNotificationsChannelSubscriptions(clientApp.channelID, topic);
     }).then(
         $.getJSON('./language.json', function(data) {
             clientApp.language = data;
         })
-    ).then(data => console.log("Succesfully set-up Client App. : "+ Object.values(data)))
+    ).then(data => console.log("Succesfully set-up Client App. : "+ data))
 
     // Error Handling
     .catch(e => console.log(e));
@@ -66,9 +63,9 @@ clientApp.onSocketMessage = function(event){
     let data = JSON.parse(event.data);
     let topic = data.topicName;
     let eventBody = data.eventBody;
-
-    console.log(topic);
-    console.log(eventBody);
+    console.log("flozac: data " + data);
+    console.log("flozac: topic " + topic);
+    console.log("flozac: eventBody " + eventBody);
     
     // If a voice interaction (from queue) comes in
     if(topic === clientApp.topicIdAgent){
