@@ -11,6 +11,7 @@ const redirectUri = "https://helplineudj.github.io/";
 
 // API instances
 const usersApi = new platformClient.UsersApi();
+const authorizationApi = new platformClient.AuthorizationApi();
 const notificationsApi = new platformClient.NotificationsApi();
 const analyticsApi = new platformClient.AnalyticsApi();
 const routingApi = new platformClient.RoutingApi();
@@ -36,7 +37,7 @@ clientApp.setup = function(pcEnv, langTag, html){
         document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
         document.getElementById('Department').innerHTML = 'Department : '+userMe['department'];
         document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
-        usersApi.getAuthorizationDivision(userMe.division.id).then( division => {
+        authorizationApi.getAuthorizationDivision(userMe.division.id).then( division => {
             console.log("Division: ");
             console.log(division);
         });
