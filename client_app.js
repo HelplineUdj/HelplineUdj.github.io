@@ -38,8 +38,7 @@ clientApp.setup = function(pcEnv, langTag, html){
         document.getElementById('Department').innerHTML = 'Department : '+userMe['department'];
         document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
         authorizationApi.getAuthorizationDivision(userMe.division.id).then( division => {
-            console.log("Division: ");
-            console.log(division);
+            document.getElementById('Division').innerHTML = 'Division : '+division.name;
         });
         // Create a Notifications Channel
         return notificationsApi.postNotificationsChannels();
