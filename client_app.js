@@ -37,9 +37,9 @@ clientApp.setup = function(pcEnv, langTag, html){
         document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
         document.getElementById('Department').innerHTML = 'Department : '+userMe['department'];
         document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
-        authorizationApi.getAuthorizationDivision(userMe.division.id).then( division => {
+        /*authorizationApi.getAuthorizationDivision(userMe.division.id).then( division => {
             document.getElementById('Division').innerHTML = 'Division : '+division.name;
-        });
+        });*/
         // Create a Notifications Channel
         return notificationsApi.postNotificationsChannels();
     }).then(data => {
@@ -146,6 +146,7 @@ clientApp.loadSupervisorView = function(){
 
 clientApp.subscribeToQueue = function(queue){
     // Check if there is an active conversation
+    console.log('Subcribe to queue');
     clientApp.getActiveConversation(queue);
 
     // Subscribe to Conversations of selected queue.
