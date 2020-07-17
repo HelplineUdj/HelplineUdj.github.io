@@ -375,7 +375,7 @@ clientApp.updateTableRow = function(data) {
         console.log("clientApp.isCallActiveSup: " + clientApp.isCallActiveSup);
         console.log("agent: " + agent);
 
-        if((acd.endTime !== undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
+        if((acd.endTime !== undefined) && (clientApp.isCallActiveSup) && (agent !== undefined)){
             // If incoming call
             clientApp.updateRow(data, agent.calls[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
             clientApp.isCallActiveSup = false;
