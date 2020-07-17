@@ -34,8 +34,12 @@ clientApp.setup = function(pcEnv, langTag, html){
         clientApp.userId = userMe.id;
         document.getElementById('Prenom').innerHTML = 'Prenom : '+userMe['name'].split(' ')[0];
         document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
-        document.getElementById('department').innerHTML = 'Department : '+userMe['department'];
+        document.getElementById('Department').innerHTML = 'Department : '+userMe['department'];
         document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
+        client.getAuthorizationDivision(userMe.division.id).then( division => {
+            console.log("Division: ");
+            console.log(division);
+        });
         // Create a Notifications Channel
         return notificationsApi.postNotificationsChannels();
     }).then(data => {
