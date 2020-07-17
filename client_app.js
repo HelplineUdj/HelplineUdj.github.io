@@ -37,9 +37,10 @@ clientApp.setup = function(pcEnv, langTag, html){
         document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
         document.getElementById('Department').innerHTML = 'Department : '+userMe['department'];
         document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
-        /*authorizationApi.getAuthorizationDivision(userMe.division.id).then( division => {
+        authorizationApi.getAuthorizationDivision(userMe.division.id).then( division => {
             document.getElementById('Division').innerHTML = 'Division : '+division.name;
-        });*/
+            return;
+        });
         // Create a Notifications Channel
         return notificationsApi.postNotificationsChannels();
     }).then(data => {
@@ -370,6 +371,10 @@ clientApp.updateTableRow = function(data) {
 
     // Call Conversation Type
     if((caller.calls !== undefined) && (caller.chats === undefined) && (caller.callbacks === undefined) && (caller.emails === undefined)) {
+        console.log("acd entime: " + acd.endTime);
+        console.log("clientApp.isCallActiveSup: " + clientApp.isCallActiveSup);
+        console.log("agent: " + agent);
+
         if((acd.endTime !== undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
             // If incoming call
             clientApp.updateRow(data, agent.calls[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
