@@ -36,7 +36,7 @@ clientApp.setup = function(pcEnv, langTag, html){
         document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
         document.getElementById('Department').innerHTML = 'Department : '+userMe['department'];
         document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
-        client.getAuthorizationDivision(userMe.division.id).then( division => {
+        usersApi.getAuthorizationDivision(userMe.division.id).then( division => {
             console.log("Division: ");
             console.log(division);
         });
