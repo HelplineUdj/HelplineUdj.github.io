@@ -29,6 +29,8 @@ clientApp.setup = function(pcEnv, langTag, html){
         // Get Details of current User and save to Client App
         return usersApi.getUsersMe();
     }).then( userMe => {
+        console.log("UserMe: ");
+        console.log(userMe);
         clientApp.userId = userMe.id;
         document.getElementById('Prenom').innerHTML = 'Prenom : '+userMe['name'].split(' ')[0];
         document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
