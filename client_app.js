@@ -30,10 +30,10 @@ clientApp.setup = function(pcEnv, langTag, html){
         return usersApi.getUsersMe();
     }).then( userMe => {
         clientApp.userId = userMe.id;
-         document.getElementById('Prenom').innerHTML = 'Prenom : '+userMe['name'].split(' ')[0];
-          document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
-          document.getElementById('department').innerHTML = 'Department : '+userMe['department'];
-          document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
+        document.getElementById('Prenom').innerHTML = 'Prenom : '+userMe['name'].split(' ')[0];
+        document.getElementById('Nom').innerHTML = 'Nom : '+userMe['name'].split(' ')[1];
+        document.getElementById('department').innerHTML = 'Department : '+userMe['department'];
+        document.getElementById('Qualification').innerHTML = 'Qualification : '+userMe['title'];
         // Create a Notifications Channel
         return notificationsApi.postNotificationsChannels();
     }).then(data => {
@@ -363,7 +363,11 @@ clientApp.updateTableRow = function(data) {
 
     // Call Conversation Type
     if((caller.calls !== undefined) && (caller.chats === undefined) && (caller.callbacks === undefined) && (caller.emails === undefined)) {
-        if((acd.endTime !== undefined) && (caller.endTime === undefined) && (agent !== undefined)) {
+        if((acd.endTime !== undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
+            // If incoming call
+            clientApp.updateRow(data, agent.calls[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
+            clientApp.isCallActiveSup = false;
+        } else if((acd.endTime !== undefined) && (caller.endTime === undefined) && (agent !== undefined)) {
             // If active call
             var wait = new Date((new Date(acd.connectedTime)) - (new Date(caller.connectedTime))).toISOString().slice(11, -1);
             clientApp.updateRow(data, agent.calls[0].state, wait, $("#Duration" + data.eventBody.id).text());
@@ -377,15 +381,12 @@ clientApp.updateTableRow = function(data) {
                 clientApp.updateRow(data, agent.calls[0].state, wait, duration);
                 clientApp.isCallActiveSup = false;
             }        
-        }else {
-            clientApp.updateRow(data, agent.calls[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
-            clientApp.isCallActiveSup = false;
         }
     }
     
     // Chat Conversation Type
     if((caller.calls === undefined) && (caller.chats !== undefined) && (caller.callbacks === undefined) && (caller.emails === undefined)) {
-        if((acd.endTime === undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
+        if((acd.endTime !== undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
             // If incoming chat
             clientApp.updateRow(data, agent.chats[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
             clientApp.isCallActiveSup = false;
@@ -408,7 +409,7 @@ clientApp.updateTableRow = function(data) {
 
     // Callback Conversation Type
     if((caller.calls !== undefined) && (caller.chats === undefined) && (caller.callbacks !== undefined) && (caller.emails === undefined)) {
-        if((acd.endTime === undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
+        if((acd.endTime !== undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
             // If incoming callback
             clientApp.updateRow(data, agent.callbacks[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
             clientApp.isCallActiveSup = false;
@@ -431,7 +432,7 @@ clientApp.updateTableRow = function(data) {
 
     // Email Conversation Type
     if((caller.calls === undefined) && (caller.chats === undefined) && (caller.callbacks === undefined) && (caller.emails !== undefined)) {
-        if((acd.endTime === undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
+        if((acd.endTime !== undefined) && (!clientApp.isCallActiveSup) && (agent !== undefined)){
             // If incoming email
             clientApp.updateRow(data, agent.emails[0].state, $("#Wait" + data.eventBody.id).text(), $("#Duration" + data.eventBody.id).text());
             clientApp.isCallActiveSup = false;
