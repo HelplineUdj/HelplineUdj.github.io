@@ -1,0 +1,420 @@
+swagger: '2.0'
+info:
+  description: Dialogflow API
+  version: 1.0.0
+  title: Dialogflow API
+basePath: /
+tags:
+  - name: user
+    description: User endpoints
+  - name: warnings
+    description: Warnings endpoints
+  - name: statistics
+    description: Statistic endpoints
+  - name: structParam
+    description: Structure Parameters endpoints
+schemes:
+  - https
+paths:
+  '/user/{user_id}':
+    get:
+      tags:
+        - user
+      summary: "Réception de l'information si l'utilisateur est dans la 'whitelist' ou non."
+      description: "Réception de l'information si l'utilisateur est dans la 'whitelist' ou non."
+      parameters:
+        - in: path
+          name: user_id
+          description: ID utilisateur
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Autorisation
+          schema:
+            type: object
+            properties:
+              Authorization:
+                type: boolean
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+          
+  '/user/workgroups/{user_id}':
+    get:
+      tags:
+        - user
+      summary: Réception de touts les workgroups de l'utilisateur.
+      description: Réception de touts les workgroups de l'utilisateur.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID utilisateur
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Tableau 
+          schema:
+            type: object
+            properties:
+              Workgroups:
+                type: array
+                items:
+                  type: string
+                example: [wkg1, wkg2, wkg3]
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+    
+  '/warnings/{user_id}':
+    get:
+      tags:
+        - warnings
+      summary: Réception de toutes les alertes de l'utilisateur.
+      description: Réception de toutes les alertes de l'utilisateur par rapport aux workgroups auxquels il est lié.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID utilisateur
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Warnings 
+          schema:
+            type: object
+            properties:
+              ActivatedMessage:
+                type: object
+                properties:
+                  Activated:
+                    type: boolean
+                  WkgList:
+                    type: array
+                    items:
+                      type: string
+                    example: [wkg1, wkg2, wkg3]
+              WaitingTime:
+                type: object
+                properties:
+                  TooLong:
+                    type: boolean
+                  WkgList:
+                    type: array
+                    items:
+                      type: string
+                    example: [wkg1, wkg2, wkg3]
+              Technicians:
+                type: object
+                properties:
+                  NoTech:
+                    type: boolean
+                  WkgList:
+                    type: array
+                    items:
+                      type: string
+                    example: [wkg1, wkg2, wkg3]
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  '/statistics/{workgroup_id}':
+      get:
+        tags:
+          - statistics
+        summary: "Réception de toutes les données statistique sur un 'workgroup' donné."
+        description: "Réception de toutes les données statistique sur un 'workgroup' donné."
+        parameters:
+          - in: path
+            name: workgroup_id
+            description: ID du workgroup
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Nombre d'appels dans le workgroup.
+            schema:
+              type: object
+              properties:
+                NumberOfCalls:
+                  type: integer
+                NumberOfAgentsCo:
+                  type: integer
+                NumberOfAgentsAvailable:
+                  type: integer
+                AverageWait:
+                  type: integer
+                AverageConv:
+                  type: integer
+                WkgList:
+                  type: array
+                  items:
+                    type: string
+                  example: [wkg1, wkg2, wkg3]
+          '400':
+            description: Bad Request
+          '500':
+            description: Internal Server Error
+  '/statistics/calls/{workgroup_id}':
+      get:
+        tags:
+          - statistics
+        summary: "Réception du nombre d'appels sur un 'workgroup' donné."
+        description: "Réception du nombre d'appels sur un 'workgroup' donné."
+        parameters:
+          - in: path
+            name: workgroup_id
+            description: ID du workgroup
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Nombre d'appels dans le workgroup.
+            schema:
+              type: object
+              properties:
+                NumberOfCalls:
+                  type: integer
+                WkgList:
+                  type: array
+                  items:
+                    type: string
+                  example: [wkg1, wkg2, wkg3]
+          '400':
+            description: Bad Request
+          '500':
+            description: Internal Server Error
+  '/statistics/agentsConnected/{workgroup_id}':
+      get:
+        tags:
+          - statistics
+        summary: "Réception du nombre d'agents connecté sur un 'workgroup' donné."
+        description: "Réception du nombre d'agents connecté sur un 'workgroup' donné."
+        parameters:
+          - in: path
+            name: workgroup_id
+            description: ID du workgroup
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Nombre d'agent connectés.
+            schema:
+              type: object
+              properties:
+                NumberOfAgents:
+                  type: integer
+                WkgList:
+                  type: array
+                  items:
+                    type: string
+                  example: [wkg1, wkg2, wkg3]
+          '400':
+            description: Bad Request
+          '500':
+            description: Internal Server Error
+  '/statistics/agentsAvailable/{workgroup_id}':
+      get:
+        tags:
+          - statistics
+        summary: "Réception du nombre d'agents disponible sur un 'workgroup' donné."
+        description: "Réception du nombre d'agents disponible sur un 'workgroup' donné."
+        parameters:
+          - in: path
+            name: workgroup_id
+            description: ID du workgroup
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Nombre d'agent disponible.
+            schema:
+              type: object
+              properties:
+                NumberOfAgents:
+                  type: integer
+                WkgList:
+                  type: array
+                  items:
+                    type: string
+                  example: [wkg1, wkg2, wkg3]
+          '400':
+            description: Bad Request
+          '500':
+            description: Internal Server Error
+  '/statistics/averageWait/{workgroup_id}':
+      get:
+        tags:
+          - statistics
+        summary: "Réception de la moyenne du temps d'attente 'workgroup' donné."
+        description: "Réception de la moyenne du temps d'attente 'workgroup' donné."
+        parameters:
+          - in: path
+            name: workgroup_id
+            description: ID du workgroup
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Moyenne du temps d'attente.
+            schema:
+              type: object
+              properties:
+                AverageWait:
+                  type: integer
+                WkgList:
+                  type: array
+                  items:
+                    type: string
+                  example: [wkg1, wkg2, wkg3]
+          '400':
+            description: Bad Request
+          '500':
+            description: Internal Server Error
+  '/statistics/averageConv/{workgroup_id}':
+      get:
+        tags:
+          - statistics
+        summary: "Réception de la moyenne du temps de conversation sur un 'workgroup' donné."
+        description: "Réception de la moyenne du temps de conversation sur un 'workgroup' donné."
+        parameters:
+          - in: path
+            name: workgroup_id
+            description: ID du workgroup
+            required: true
+            type: string
+        responses:
+          '200':
+            description: Moyenne du temps de conversation.
+            schema:
+              type: object
+              properties:
+                AverageConv:
+                  type: integer
+                WkgList:
+                  type: array
+                  items:
+                    type: string
+                  example: [wkg1, wkg2, wkg3]
+          '400':
+            description: Bad Request
+          '500':
+            description: Internal Server Error
+          
+  '/structParam/':
+    get:
+      deprecated: true
+      tags:
+        - structParam
+      summary: update the user
+      description: Put in the body only the properties you want to update
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          type: number
+        - in: body
+          name: body
+          description: user property
+          required: true
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              birthday:
+                type: string
+                format: date
+              nickname:
+                type: string
+              street_name:
+                type: string
+              street_number:
+                type: number
+              town_name:
+                type: string
+              postal_code:
+                type: number
+              country_name:
+                type: string
+      responses:
+        '200':
+          description: User id
+          schema:
+            type: object
+            properties:
+              id:
+                type: number
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+          
+    put:
+      deprecated: true
+      tags:
+        - structParam
+      summary: update the user
+      description: Put in the body only the properties you want to update
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: user id
+          required: true
+          type: number
+        - in: body
+          name: body
+          description: user property
+          required: true
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              birthday:
+                type: string
+                format: date
+              nickname:
+                type: string
+              street_name:
+                type: string
+              street_number:
+                type: number
+              town_name:
+                type: string
+              postal_code:
+                type: number
+              country_name:
+                type: string
+      responses:
+        '200':
+          description: User id
+          schema:
+            type: object
+            properties:
+              id:
+                type: number
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
