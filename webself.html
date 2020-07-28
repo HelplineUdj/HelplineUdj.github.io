@@ -1,0 +1,72 @@
+<script src="https://apps.mypurecloud.de/widgets/9.0/cxbus.min.js" onload="javascript:CXBus.configure({debug:false,pluginsPath:'https://apps.mypurecloud.de/widgets/9.0/plugins/'}); CXBus.loadPlugin('widgets-core');"></script>
+
+<script type="text/javascript">
+  window._genesys = {
+    widgets: {
+		
+	  main: {
+		preload: ['webchat'],
+	  },
+  
+      webchat: {
+		  
+		chatButton: {
+		  enabled: true, // (boolean) Enable/disable chat button on screen.
+		  template: '<div>Live Chat</div>', // (string) Custom HTML string template for chat button.
+		  effect: 'slide',         // (string) Type of animation effect when revealing chat button. 'slide' or 'fade'.
+		  openDelay: 1000,        // (number) Number of milliseconds before displaying chat button on screen.
+		  effectDuration: 300,    // (number) Length of animation effect in milliseconds.
+		  hideDuringInvite: true  // (boolean) When auto-invite feature is activated, hide the chat button. When invite is dismissed, reveal the chat button again.
+        },
+    
+		form: {
+			wrapper: "<table></table>",
+			inputs: [
+				{
+					id: 'cx_webchat_form_email',
+					name: 'email',
+					maxlength: '100',
+					placeholder: 'Optional',
+					label: 'Email'
+				}
+			]
+		}
+
+        transport: {
+          type: 'purecloud-v2-sockets',
+          dataURL: 'https://api.mypurecloud.de',
+          deploymentKey: '2330d14c-38f1-4a63-9a18-585627934f2f',
+          orgGuid: 'e98a239a-156b-46ca-a036-3615d8df2a9b',
+          interactionData: {
+            routing: {
+              targetType: 'QUEUE',
+              targetAddress: '0100-UDJ SD - Chats',
+              priority: 2
+            }
+          }
+        }
+      }
+    }
+  };
+
+  const customPlugin = CXBus.registerPlugin('Custom');
+
+  customPlugin.subscribe('WebChatService.started', function (e) {
+    console.log('Chat started', e);
+  });
+
+  customPlugin.subscribe('WebChatService.ended', function (e) {
+    console.log('Chat ended', e);
+  });
+</script>
+
+<script type="text/javascript">
+  function getAdvancedConfig() {
+    return {
+      form: {
+        autoSubmit: false,
+        email: '-'
+      }
+    };
+  }
+</script>
