@@ -5,7 +5,7 @@
 	  console: {open: true},
 		
 	  main: {
-		theme: 'dark',
+		theme: 'light',
 		themes: {
 
 			dark: 'cx-theme-dark',
