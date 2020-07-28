@@ -67,14 +67,4 @@ const customPlugin = CXBus.registerPlugin('Custom');
   customPlugin.subscribe('WebChatService.ended', function (e) {
     console.log('Chat ended', e);
   });
-</script>
 
-<script type="text/javascript">
-  function getAdvancedConfig() {
-    return {
-      form: {
-        autoSubmit: false,
-        email: '-'
-      }
-    };
-  }
