@@ -1,6 +1,4 @@
-<script src="https://apps.mypurecloud.de/widgets/9.0/cxbus.min.js" onload="javascript:CXBus.configure({debug:false,pluginsPath:'https://apps.mypurecloud.de/widgets/9.0/plugins/'}); CXBus.loadPlugin('widgets-core');"></script>
 
-<script type="text/javascript">
   window._genesys = {
     widgets: {
 
@@ -80,4 +78,3 @@ const customPlugin = CXBus.registerPlugin('Custom');
       }
     };
   }
-</script>
