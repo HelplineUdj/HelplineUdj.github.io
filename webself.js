@@ -22,7 +22,7 @@
 		  
 		chatButton: {
 		  enabled: true, // (boolean) Enable/disable chat button on screen.
-		  template: '<div>Live\nChat</div>', // (string) Custom HTML string template for chat button.
+		  template: '<div>## Live Chat ##</div>', // (string) Custom HTML string template for chat button.
 		  effect: 'fade',         // (string) Type of animation effect when revealing chat button. 'slide' or 'fade'.
 		  openDelay: 1000,        // (number) Number of milliseconds before displaying chat button on screen.
 		  effectDuration: 300,    // (number) Length of animation effect in milliseconds.
@@ -36,7 +36,7 @@
 					id: 'cx_webchat_form_email',
 					name: 'email',
 					maxlength: '100',
-					placeholder: 'Required',
+					placeholder: 'Obligatoire',
 					label: 'Email'
 				}
 			]
