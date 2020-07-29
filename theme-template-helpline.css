@@ -70,26 +70,26 @@
   fill: #98A7B8;
 }
 .cx-widget.cx-theme-helpline .cx-form-control {
-  background-color: #D0CAC8;
+  background-color: #BBCE04;
   color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-form-control.cx-error {
   border-color: #F53131 !important;
 }
 .cx-widget.cx-theme-helpline .cx-form-control::placeholder {
-  color: #C5CCD6;
+  color: #000000;
 }
 .cx-widget.cx-theme-helpline .cx-form-control:-moz-placeholder {
-  color: #C5CCD6;
+  color: #000000;
 }
 .cx-widget.cx-theme-helpline .cx-form-control::-moz-placeholder {
-  color: #C5CCD6;
+  color: #000000;
 }
 .cx-widget.cx-theme-helpline .cx-form-control:-ms-input-placeholder {
-  color: #C5CCD6;
+  color: #000000;
 }
 .cx-widget.cx-theme-helpline .cx-form-control::-webkit-input-placeholder {
-  color: #C5CCD6;
+  color: #000000;
 }
 .cx-widget.cx-theme-helpline input:focus,
 .cx-widget.cx-theme-helpline textarea:focus,
@@ -101,7 +101,7 @@
 .cx-widget.cx-theme-helpline input,
 .cx-widget.cx-theme-helpline select,
 .cx-widget.cx-theme-helpline textarea {
-  background-color: #D0CAC8;
+  background-color: #BBCE04;
   color: #F8CC46;
   border-color: #758384;
 }
