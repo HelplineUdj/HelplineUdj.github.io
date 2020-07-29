@@ -116,7 +116,7 @@
 }
 .cx-widget.cx-theme-helpline .cx-btn-primary {
   color: #FDFDFD;
-  border-color: #2E69DB !important;
+  border-color: #000000 !important;
   background: #5081E1;
   /* Old browsers */
   background: -moz-linear-gradient(top, #5081E1 0%, #4375D6 100%);
