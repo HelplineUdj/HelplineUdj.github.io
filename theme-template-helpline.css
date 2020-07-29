@@ -96,7 +96,7 @@
 .cx-widget.cx-theme-helpline .cx-btn:focus,
 .cx-widget.cx-theme-helpline .cx-button-group button:focus,
 .cx-widget.cx-theme-helpline .cx-form-control:not(.cx-error):focus {
-  border-color: #000000 !important;
+  border-color: #75A8FF !important;
 }
 .cx-widget.cx-theme-helpline input,
 .cx-widget.cx-theme-helpline select,
@@ -138,7 +138,7 @@
 }
 .cx-widget.cx-theme-helpline .cx-ac-suggestion:hover,
 .cx-widget.cx-theme-helpline .cx-ac-suggestion.cx-active {
-  background-color: #000000;
+  background-color: #75A8FF;
   color: #FDFDFD;
 }
 .cx-widget.cx-theme-helpline ::-webkit-scrollbar-thumb {
