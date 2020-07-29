@@ -70,7 +70,7 @@
   fill: #98A7B8;
 }
 .cx-widget.cx-theme-helpline .cx-form-control {
-  background-color: #BBCE04;
+  background-color: #D0CAC8;
   color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-form-control.cx-error {
@@ -101,7 +101,7 @@
 .cx-widget.cx-theme-helpline input,
 .cx-widget.cx-theme-helpline select,
 .cx-widget.cx-theme-helpline textarea {
-  background-color: #BBCE04;
+  background-color: #D0CAC8;
   color: #F8CC46;
   border-color: #758384;
 }
@@ -109,7 +109,7 @@
   background: none;
   border-color: #222529 !important;
   color: #FDFDFD;
-  background-color: #BBCE04;
+  background-color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-btn.cx-disabled {
   background: #CCCCCC;
