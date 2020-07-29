@@ -70,7 +70,7 @@
   fill: #98A7B8;
 }
 .cx-widget.cx-theme-helpline .cx-form-control {
-  background-color: #BB0EC4;
+  background-color: #BBCE04;
   color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-form-control.cx-error {
@@ -101,7 +101,7 @@
 .cx-widget.cx-theme-helpline input,
 .cx-widget.cx-theme-helpline select,
 .cx-widget.cx-theme-helpline textarea {
-  background-color: #BB0EC4;
+  background-color: #BBCE04;
   color: #F8CC46;
   border-color: #758384;
 }
