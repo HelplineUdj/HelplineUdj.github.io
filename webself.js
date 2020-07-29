@@ -13,7 +13,6 @@
 			helpline: 'cx-theme-helpline'
 		},
 		preload: ['webchat'],
-		lang: 'fr',
 		i18n: "https://apps.mypurecloud.de/widgets/<version>/i18n/widgets-fr.i18n.json",
 		debug: true
 	  },
