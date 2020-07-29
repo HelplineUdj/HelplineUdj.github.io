@@ -130,7 +130,7 @@
 }
 .cx-widget.cx-theme-helpline .cx-button-group .cx-btn-primary:focus,
 .cx-widget.cx-theme-helpline .cx-btn-primary:focus {
-  border-color: #DAE6FC !important;
+  border-color: #000000 !important;
 }
 .cx-widget.cx-theme-helpline .cx-ac-dropdown-menu {
   background: #5EB17B;
