@@ -8,7 +8,7 @@
 	HELPLINE Theme Color Overrides
 */
 .cx-widget.cx-theme-helpline {
-  color: #FDFDFD;
+  color: #F8CC46;
   background-color: #5EB17B;
   scrollbar-face-color: #A3A8AE;
   scrollbar-track-color: #212529;
@@ -17,7 +17,7 @@
 }
 .cx-widget.cx-theme-helpline .cx-theme {
   background-color: #5EB17B;
-  color: #FDFDFD;
+  color: #F8CC46;
   border-color: #222529 !important;
 }
 .cx-widget.cx-theme-helpline .cx-overlay {
@@ -41,7 +41,7 @@
   border-color: #222529;
 }
 .cx-widget.cx-theme-helpline .cx-titlebar .cx-title {
-  color: #FDFDFD;
+  color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-buttons-window-control .cx-svg-icon-tone1 {
   fill: #98A7B8;
@@ -50,13 +50,13 @@
   fill: #98A7B8;
 }
 .cx-widget.cx-theme-helpline label {
-  color: #FDFDFD;
+  color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline a {
   color: #FDFDFD;
 }
 .cx-widget.cx-theme-helpline a:hover {
-  color: #FDFDFD;
+  color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-icon-alert-circle {
   color: #F53131;
@@ -71,7 +71,7 @@
 }
 .cx-widget.cx-theme-helpline .cx-form-control {
   background-color: #BB0EC4;
-  color: #FDFDFD;
+  color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-form-control.cx-error {
   border-color: #F53131 !important;
@@ -102,14 +102,14 @@
 .cx-widget.cx-theme-helpline select,
 .cx-widget.cx-theme-helpline textarea {
   background-color: #BB0EC4;
-  color: #FDFDFD;
+  color: #F8CC46;
   border-color: #758384;
 }
 .cx-widget.cx-theme-helpline .cx-btn-default {
   background: none;
   border-color: #222529 !important;
   color: #FDFDFD;
-  background-color: #222529;
+  background-color: #BB0EC4;
 }
 .cx-widget.cx-theme-helpline .cx-btn.cx-disabled {
   background: #CCCCCC;
@@ -159,7 +159,7 @@
   border: 1px solid #222529 !important;
 }
 .cx-widget.cx-theme-helpline .cx-theme-text {
-  color: #FDFDFD;
+  color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-theme-icon-interactive1 svg .cx-svg-icon-tone1 {
   fill: #5081E1;
@@ -180,8 +180,8 @@
   fill: #F53131 !important;
 }
 .cx-widget.cx-theme-helpline .cx-countdown {
-  color: #FDFDFD;
+  color: #F8CC46;
 }
 .cx-widget.cx-theme-helpline .cx-countdown .cx-icon svg * {
-  fill: #FDFDFD;
+  fill: #F8CC46;
 }
