@@ -7,7 +7,7 @@ let clientApp = {};
 // PureCloud OAuth information
 const platformClient = require('platformClient');
 const client = platformClient.ApiClient.instance;
-const redirectUri = "https://helplineudj.github.io/";
+const redirectUri = "https://flozachelpline.github.io/HelplineUdj.github.io/";
 
 // API instances
 const usersApi = new platformClient.UsersApi();
